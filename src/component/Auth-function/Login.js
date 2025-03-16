@@ -30,18 +30,18 @@ function Login() {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
   };
-  const validatePassword = (password) => {
-    //     At least one digit (\d)
-    // At least one lowercase letter ([a-z])
-    // At least one uppercase letter ([A-Z])
-    // Length between 6 and 20 characters
-    const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-    //ngoại lệ admin123
-    if (password === 'admin123' || password === 'admin1234') {//ngoại lệ admin123 và admin1234
-      return true;
-    }
-    return re.test(String(password));
-  };
+  // const validatePassword = (password) => {
+  //   //     At least one digit (\d)
+  //   // At least one lowercase letter ([a-z])
+  //   // At least one uppercase letter ([A-Z])
+  //   // Length between 6 and 20 characters
+  //   const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+  //   //ngoại lệ admin123
+  //   if (password === 'admin123' || password === 'admin1234') {//ngoại lệ admin123 và admin1234
+  //     return true;
+  //   }
+  //   return re.test(String(password));
+  // };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -70,27 +70,7 @@ function Login() {
         text: 'Email không đúng định dạng email phải bao gồm @ và tên miền',
       });
       return;
-    } else if(!validatePassword(password)) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-          document.querySelector(".swal2-container").style.zIndex = "9999";
-          document.querySelector(".swal2-container").style.marginTop = "80px";
-        }
-      });
-      Toast.fire({
-        icon: 'error',
-        title: 'Đăng nhập thất bại',
-        text: 'Mật khẩu phải chứa ít nhất 6 ký tự, bao gồm chữ cái viết thường và số',
-      });
-      return;
-    }
+    } 
     const user = account.find(account => account.email === email && account.password === password);
     if (user) {
       const Toast = Swal.mixin({
