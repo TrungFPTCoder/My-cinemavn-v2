@@ -186,7 +186,6 @@ function WatchMovie() {
                                                     (
                                                         <div>
                                                             <FontAwesomeIcon icon={faHeartSolid} color='red'></FontAwesomeIcon> Đã theo dõi
-
                                                         </div>
                                                     ) :
                                                     (
