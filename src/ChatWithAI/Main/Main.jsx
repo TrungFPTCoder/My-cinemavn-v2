@@ -100,7 +100,7 @@ const Main = () => {
                                   type="text"
                                   placeholder="Hỏi tôi điều gì đó..."
                         />
-                        <div className="icon-container">
+                        <div className="icon-container1">
                             {/* <button><img src={assets.gallery_icon} alt=""/></button> */}
                             {/* <button><img src={assets.mic_icon} alt=""/></button> */}
                             {/* <button type="submit" onClick={() => onSent()}><img src={assets.send_icon} alt=""/></button> */}
