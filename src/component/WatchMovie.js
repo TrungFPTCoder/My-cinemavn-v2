@@ -25,18 +25,22 @@ function WatchMovie() {
     const movieDetails = useSelector((state) => state.movieDetails);
     // thử nghiệm theo dõi phim
     const accounts = useSelector((state) => state.account);
-    useEffect(() => {
-        const loadAccounts = async () => {
-            setLoading(true);
-            const accountsData = await fetchAccount();
-            // console.log(favoMoviesData);
-            dispatch(setAccount(accountsData));
-            const moviesDetailData = await fetchMovieDetails(slug);
-            dispatch(setMovieDetails(moviesDetailData));
-            setLoading(false);
-        };
-        loadAccounts();
-    }, [dispatch]);
+    try{
+        useEffect(() => {
+            const loadAccounts = async () => {
+                setLoading(true);
+                const accountsData = await fetchAccount();
+                // console.log(favoMoviesData);
+                dispatch(setAccount(accountsData));
+                const moviesDetailData = await fetchMovieDetails(slug);
+                dispatch(setMovieDetails(moviesDetailData));
+                setLoading(false);
+            };
+            loadAccounts();
+        }, [dispatch]);
+    }catch (error) {
+        console.log(error);
+    }
     //   
     if (loading) {
         return <div><LoadingComponent></LoadingComponent></div>
@@ -54,7 +58,7 @@ function WatchMovie() {
     const username = sessionStorage.getItem('user');
     const email = sessionStorage.getItem('email');
     const accountUser = accounts.find((account) => account.FullName === username && account.email === email);
-    console.log(accountUser);
+    // console.log(accountUser);
     followMovie = () => {
         // const followedMovies = favoMovies.
         const followedMovies = accountUser.FavoriteMovie;
@@ -80,7 +84,7 @@ function WatchMovie() {
 
     const handleFollowClick = () => {
         if (follow) {
-            // Show the modal to confirm the action
+            // Show the modal to confirm the action (đã follow)
             const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
             modal.show();
         } else {
@@ -91,6 +95,8 @@ function WatchMovie() {
             }
             else {
                 setFollow(!follow);
+                //Chưa follow (đã login)
+
             }
         }
     };

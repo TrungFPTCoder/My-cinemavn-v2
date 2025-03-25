@@ -36,6 +36,11 @@ export const addAccountService = async (account) => {
     const response = await axios.post(API_URL_ACCOUNTS, account);
     return response.data;
 };
+//thử nghiệm add favo movie
+export const addFavoMovie = async (account) => {
+    const response = await axios.post(API_URL_ACCOUNTS, account);
+    return response.data.FavoriteMovie;
+};
 //favoMovie
 export const fetchFavoMovie = async ()=>{
     const response = await axios.get(API_URL_ACCOUNTS);

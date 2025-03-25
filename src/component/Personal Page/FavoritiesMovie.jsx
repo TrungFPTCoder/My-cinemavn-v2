@@ -6,7 +6,7 @@ import LoadingComponent from '../LoadingComponent';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
-import '../../assest/MovieCate.css';
+// import '../../assest/MovieCate.css';
 import '../../assest/FavoritiesMovie.css';
 function FavoritiesMovie() {
   // const favoMovies = useSelector((state) => state.favoMovie);
@@ -49,20 +49,20 @@ function FavoritiesMovie() {
             {accountUser.FavoriteMovie.map((movie) => (
               <div className='col-6 col-md-3 col-sm-4 col-xl-2 mb-3'>
                 <div className='card position-relative tooltip-wrapper border-0 w-100'>
-                  <div className='img-container position-relative overflow-hidden'>
+                  <div className='img-container1 position-relative overflow-hidden'>
                     <img
                       src={movie.thumb_url}
                       alt={movie.name}
-                      className='hover-thumb w-100 '
+                      className='hover-thumb-1 w-100 '
                     // height={200}
                     />
-                    <div className="play-button">
+                    <div className="play-button1">
                       <Link to={`/watch/${movie.slug}`}>
                         <FontAwesomeIcon icon={faPlayCircle} fontSize={60} color="white" />
                       </Link>
                     </div>
                   </div>
-                  <div className='movie--name position-absolute'>
+                  <div className='movie--name--1 position-absolute'>
                     <Link to={`/watch/${movie.slug}`} className='text-decoration-none'>
                       <h6 className='text-center text-light'>{movie.name}</h6>
                     </Link>
