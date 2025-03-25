@@ -6,7 +6,6 @@ import LoadingComponent from '../LoadingComponent';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
-// import '../../assest/MovieCate.css';
 import '../../assest/FavoritiesMovie.css';
 function FavoritiesMovie() {
   // const favoMovies = useSelector((state) => state.favoMovie);
