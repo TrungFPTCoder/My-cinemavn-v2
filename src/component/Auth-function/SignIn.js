@@ -124,7 +124,7 @@ function SignIn() {
                     // });
                     // navigate('/login');
                     try {
-                        const response = await axios.post('http://localhost:9000/signin', newUser);
+                        const response = await axios.post('https://mycinemaapi.vercel.app/addAccount', newUser);
                         if (response.status === 201) {
                             const Toast = Swal.mixin({
                                 toast: true,
