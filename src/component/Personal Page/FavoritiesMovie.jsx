@@ -26,6 +26,7 @@ function FavoritiesMovie() {
             getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosJWT);
         }
     }, [user, dispatch]);
+    console.log(favoMovies)
     return (
         <div>
             <div className='border border-light-1 text-light p-3 rounded-2'>
