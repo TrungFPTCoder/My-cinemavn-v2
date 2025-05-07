@@ -268,6 +268,10 @@ Thay đổi toàn bộ Auth-function
 
 hoàn tất thao tác login và login with google (performance thấp cần điều chỉnh hoặc thêm hiệu ứng loading)
 hoàn tất register 
+//////////////////////////////////07-05-2025
+hoàn tất hotfix personalPage và logout
+thay đổi về phương thức trong store (tách slice và store ra) 
+thêm redux-persist để lưu trữ thông tin đăng nhập trong localStorage
 
 
 
