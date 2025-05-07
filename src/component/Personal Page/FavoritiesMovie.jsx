@@ -12,7 +12,7 @@ import { createAxios } from '../createInstance';
 import { loginSuccess } from '../Slice/AuthSlice';
 function FavoritiesMovie() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();    
+    const navigate = useNavigate();
     const user = useSelector(state => state.auth.login.currentUser);
     const axiosJWT = createAxios(user, dispatch, loginSuccess);
     const favoMovies = useSelector(state => state.favoMovies.favoMovies.allFavoMovies);
@@ -26,12 +26,15 @@ function FavoritiesMovie() {
             getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosJWT);
         }
     }, [user, dispatch]);
+    if (loading) {
+        return <LoadingComponent />
+    }
     return (
         <div>
             <div className='border border-light-1 text-light p-3 rounded-2'>
-                {loading ? (<LoadingComponent />) : (
+                {
                     <div className='row'>
-                        {favoMovies.favoriteMovies.map((movie) => (
+                        {favoMovies?.favoriteMovies?.map((movie) => (
                             <div className='col-6 col-md-3 col-sm-4 col-xl-2 mb-3'>
                                 <div className='card position-relative tooltip-wrapper border-0 w-100'>
                                     <div className='img-container1 position-relative overflow-hidden'>
@@ -57,7 +60,7 @@ function FavoritiesMovie() {
                             </div>
                         ))}
                     </div>
-                )}
+                }
             </div>
         </div>
     )

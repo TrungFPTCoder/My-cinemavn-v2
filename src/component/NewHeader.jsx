@@ -403,14 +403,12 @@ function NewHeader() {
                                         </div>
                                     </div>
                                 </Link>
-                                <Link to={'/'} className='text-decoration-none'>
-                                    <div className="nav-item mb-4 p-2 rounded-5 nav-hover">
-                                        <div style={{ fontSize: '16px' }} className="text-center">
-                                            <FontAwesomeIcon icon={faSignOutAlt} className='mx-2' />
-                                            Đăng xuất
-                                        </div>
+                                <button className='text-decoration-none border-0 mb-4 p-2 rounded-5 nav-item nav-hover' onClick={handleLogout}>
+                                    <div style={{ fontSize: '16px' }} className="text-center">
+                                        <FontAwesomeIcon icon={faSignOutAlt} className='mx-2' />
+                                        Đăng xuất
                                     </div>
-                                </Link>
+                                </button>
                             </>
                         ) : (
                             <>
