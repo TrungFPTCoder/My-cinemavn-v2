@@ -30,7 +30,7 @@ function FavoritiesMovie() {
     return (
         <div>
             <div className='border border-light-1 text-light p-3 rounded-2'>
-                {loading ? (<LoadingComponent />) : (
+{/*                 {loading ? (<LoadingComponent />) : (
                     <div className='row'>
                         {favoMovies.favoriteMovies.map((movie) => (
                             <div className='col-6 col-md-3 col-sm-4 col-xl-2 mb-3'>
@@ -58,7 +58,7 @@ function FavoritiesMovie() {
                             </div>
                         ))}
                     </div>
-                )}
+                )} */}
             </div>
         </div>
     )
