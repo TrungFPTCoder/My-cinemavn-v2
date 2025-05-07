@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { fetchAccount, fetchFavoMovie, fetchMovieDetails } from '../service/MovieService';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAccount, setFavoMovie, setMovieDetails } from './MovieStore';
+import { setMovieDetails } from './Slice/MovieDetailSlice';
 import '../assest/WatchMovie.css';
 import LoadingComponent from './LoadingComponent';
 import { Helmet } from 'react-helmet-async';
@@ -14,24 +14,22 @@ import { faClosedCaptioning } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import bootstrap from '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min';
+
+
 function WatchMovie() {
     const { slug } = useParams();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true)
-    let followMovie = () => {
-
-    }
-    const [follow, setFollow] = useState(followMovie());
+    // let followMovie = () => {}
+    const [follow, setFollow] = useState(false);
     const movieDetails = useSelector((state) => state.movieDetails);
+    const user = useSelector((state) => state.auth.login.currentUser);
     // thử nghiệm theo dõi phim
-    const accounts = useSelector((state) => state.account);
+    // const accounts = useSelector((state) => state.account);
     try{
         useEffect(() => {
             const loadAccounts = async () => {
                 setLoading(true);
-                const accountsData = await fetchAccount();
-                // console.log(favoMoviesData);
-                dispatch(setAccount(accountsData));
                 const moviesDetailData = await fetchMovieDetails(slug);
                 dispatch(setMovieDetails(moviesDetailData));
                 setLoading(false);
@@ -41,10 +39,46 @@ function WatchMovie() {
     }catch (error) {
         console.log(error);
     }
-    //   
-    if (loading) {
-        return <div><LoadingComponent></LoadingComponent></div>
-    }
+    // //   
+    // let username, email;
+    // useEffect(() => {
+    //     username = sessionStorage.getItem('user');
+    //     email = sessionStorage.getItem('email');
+    //     const accountUser = accounts.find(
+    //         (account) => account.FullName === username && account.email === email
+    //     );
+
+    //     if (accountUser) {
+    //         const isFollowed = accountUser.FavoriteMovie.some((movie) => movie.slug === slug);
+    //         setFollow(isFollowed);
+    //     }
+    // }, [accounts, slug]);
+    // if (loading) {
+    //     return <div><LoadingComponent></LoadingComponent></div>
+    // }    
+    // let username, email;
+    // useEffect(() => {
+    //     username = sessionStorage.getItem('user');
+    //     email = sessionStorage.getItem('email');
+    
+    //     // Kiểm tra nếu accounts chưa được fetch
+    //     if (!accounts || accounts.length === 0) {
+    //         return;
+    //     }
+    
+    //     const accountUser = accounts.find(z
+    //         (account) => account.FullName === username && account.email === email
+    //     );
+    
+    //     if (accountUser) {
+    //         const isFollowed = accountUser.FavoriteMovie.some((movie) => movie.slug === slug);
+    //         setFollow(isFollowed);
+    //     }
+    // }, [accounts, slug]);
+    // if (loading) {
+    //     return <div><LoadingComponent /></div>;
+    // }
+    
     // useEffect(() => {
     //     const loadMovieDetails = async () => {
     //         setLoading(true);
@@ -55,51 +89,53 @@ function WatchMovie() {
     //     loadMovieDetails();
     // }, [dispatch, slug]);
     //thử nghiệm theo dõi phim
-    const username = sessionStorage.getItem('user');
-    const email = sessionStorage.getItem('email');
-    const accountUser = accounts.find((account) => account.FullName === username && account.email === email);
+    // const username = sessionStorage.getItem('user');
+    // const email = sessionStorage.getItem('email');
+    // const accountUser = accounts.find((account) => account.FullName === username && account.email === email);
     // console.log(accountUser);
-    followMovie = () => {
-        // const followedMovies = favoMovies.
-        const followedMovies = accountUser.FavoriteMovie;
-        return followedMovies.some((movie) => movie.slug === slug);
-    }
+    // const followMovie = () => {
+    //     // const followedMovies = favoMovies.
+    //     const followedMovies = ;        
+    //     return followedMovies.some((movie) => movie.slug === slug);        
+        
+    // }
+    // setFollow(accountUser.FavoriteMovie.some((movie) => movie.slug === slug));
 
-    const formattedDate = new Date(movieDetails.created).toLocaleDateString('vi-VN', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-    });
+    
+    // console.log(followMovie());
+    // setFollow(followMovie);
+    // const formattedDate = new Date(movieDetails.created).toLocaleDateString('vi-VN', {
+    //     day: '2-digit',
+    //     month: '2-digit',
+    //     year: 'numeric'
+    // });
     const convertTime = (time) => {
         const minutes = parseInt(time);
         const hours = Math.floor(minutes / 60);
         const remainingMinutes = minutes % 60;
         return `${hours}h ${remainingMinutes}m`;
     };
-
-
-
     // console.log(followMovie())
     // 
 
-    const handleFollowClick = () => {
-        if (follow) {
-            // Show the modal to confirm the action (đã follow)
-            const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
-            modal.show();
-        } else {
-            // Toggle the follow state
-            if (username === null && email === null) {
-                const modal = new bootstrap.Modal(document.getElementById('exampleModal1'));
-                modal.show();
-            }
-            else {
-                setFollow(!follow);
-                //Chưa follow (đã login)
+    // const handleFollowClick = () => {
+    //     if (follow) {
+    //         // Show the modal to confirm the action (đã follow)
+    //         const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    //         modal.show();
+    //     } else {
+    //         // Toggle the follow state
+    //         if (user.username === null && user.email === null) {
+    //             const modal = new bootstrap.Modal(document.getElementById('exampleModal1'));
+    //             modal.show();
+    //         }
+    //         else {
+    //             setFollow(!follow);
+    //             //Chưa follow (đã login)
 
-            }
-        }
-    };
+    //         }
+    //     }
+    // };
 
     const confirmUnfollow = () => {
         setFollow(false);
@@ -187,7 +223,7 @@ function WatchMovie() {
                                             </Link>
                                         </div>
                                         <div className="col-md-7">
-                                            <button className={`btn ${follow ? 'btn-followed btn-danger' : 'btn-outline-danger'} text-light mt-2`} onClick={handleFollowClick}>
+                                            <button className={`btn ${follow ? 'btn-followed btn-danger' : 'btn-outline-danger'} text-light mt-2`}>
                                                 {follow ?
                                                     (
                                                         <div>

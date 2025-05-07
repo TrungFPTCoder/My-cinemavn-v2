@@ -153,7 +153,6 @@ hr {
     font-weight: 600;
 }
 .nav-hover:hover{
-    /* background-color: #938d8d; */
     background-color: orange !important;
     color: white !important;
     transition: 0.5s ease;

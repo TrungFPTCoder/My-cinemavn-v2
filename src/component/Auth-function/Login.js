@@ -7,50 +7,33 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet';
 import LoginGoogle from './LoginGoogle'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAccount } from '../../service/MovieService'
-import { setAccount } from '../MovieStore'
 import Swal from 'sweetalert2';
+import { loginUser } from '../../service/apiRequest'
 function Login() {
   const [icon, setIcon] = useState(faEyeSlash);
-  const account = useSelector(state => state.account);
+  // const account = useSelector(state => state.account);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isFetching = useSelector((state) => state.auth.login.isFetching);
   // 25/01/2025
-  useEffect(() => {
-    const loadAccounts = async () => {
-      const accountsData = await fetchAccount();
-      dispatch(setAccount(accountsData));
-    };
-    loadAccounts();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const loadAccounts = async () => {
+  //     const accountsData = await fetchAccount();
+  //     dispatch(setAccount(accountsData));
+  //   };
+  //   loadAccounts();
+  // }, [dispatch]);
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
   };
-  // const validatePassword = (password) => {
-  //   //     At least one digit (\d)
-  //   // At least one lowercase letter ([a-z])
-  //   // At least one uppercase letter ([A-Z])
-  //   // Length between 6 and 20 characters
-  //   const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-  //   //ngoại lệ admin123
-  //   if (password === 'admin123' || password === 'admin1234') {//ngoại lệ admin123 và admin1234
-  //     return true;
-  //   }
-  //   return re.test(String(password));
-  // };
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {
-      // Swal.fire({
-      //   icon: 'error',
-      //   title: 'Đăng nhập thất bại',
-      //   text: 'Email không đúng định dạng',
-      // });
       const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -70,38 +53,71 @@ function Login() {
         text: 'Email không đúng định dạng email phải bao gồm @ và tên miền',
       });
       return;
-    } 
-    const user = account.find(account => account.email === email && account.password === password);
-    if (user) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-          document.querySelector(".swal2-container").style.zIndex = "9999";
-          document.querySelector(".swal2-container").style.marginTop = "80px";
-        }
-      });
-      Toast.fire({
-        icon: "success",
-        title: "Đăng nhập thành công"
-      });
-
-      // navigate('/', { state: { name: user.FullName, picture: user.UserImage } });
-      navigate('/');
-      sessionStorage.setItem('user', user.FullName);
-      sessionStorage.setItem('picture', user.UserImage);
-      sessionStorage.setItem('email', user.email);
-    } else {
-      // Swal.fire({
-      //   icon: 'error',
-      //   title: 'Đăng nhập thất bại',
-      //   text: 'Email hoặc mật khẩu không đúng',
-      // });
+    }
+    const newUser = {
+      email: email,
+      password: password
+    };
+    try {
+      const response = await loginUser(newUser, dispatch, navigate);
+      if (response.status === 200) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+            document.querySelector(".swal2-container").style.zIndex = "9999";
+            document.querySelector(".swal2-container").style.marginTop = "80px";
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Đăng nhập thành công"
+        });
+      } else if (response.status === 401 || response.status === 404) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+            document.querySelector(".swal2-container").style.zIndex = "9999";
+            document.querySelector(".swal2-container").style.marginTop = "80px";
+          }
+        });
+        Toast.fire({
+          icon: 'error',
+          title: 'Đăng nhập thất bại',
+          text: 'Email hoặc mật khẩu không đúng',
+        });
+      } else {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+            document.querySelector(".swal2-container").style.zIndex = "9999";
+            document.querySelector(".swal2-container").style.marginTop = "80px";
+          }
+        });
+        Toast.fire({
+          icon: 'error',
+          title: 'Đăng nhập thất bại',
+          text: 'Đã xảy ra lỗi, vui lòng thử lại sau',
+        });
+      }
+    } catch (error) {
       const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -118,7 +134,7 @@ function Login() {
       Toast.fire({
         icon: 'error',
         title: 'Đăng nhập thất bại',
-        text: 'Email hoặc mật khẩu không đúng',
+        text: 'Đã xảy ra lỗi, vui lòng thử lại sau',
       });
     }
   };
@@ -141,7 +157,7 @@ function Login() {
         <meta name="description" content='Đăng nhập' />
       </Helmet>
       <section>
-        <div className="form-box">
+        <div className={`form-box ${isFetching ? 'loading' : ''}`}>
           <div className="form-value">
             <form action="" onSubmit={handleLogin}>
               <h3>Đăng nhập</h3>
@@ -171,11 +187,16 @@ function Login() {
               </button>
               <LoginGoogle />
               <div className="register position-relative">
-                <p>Nếu bạn chưa có tài khoản, <Link to={'/signin'}>đăng ký ngay</Link></p>
+                <p>Nếu bạn chưa có tài khoản, <Link to={'/signup'}>đăng ký ngay</Link></p>
               </div>
             </form>
           </div>
         </div>
+        {isFetching && (
+          <div className="loading-overlay">
+            <div className="spinner"></div>
+          </div>
+        )}
       </section>
     </div>
   )

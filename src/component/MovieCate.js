@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieCate, fetchMovieDetails } from '../service/MovieService';
-import { setCategoryMovies, setMovieDetails } from './MovieStore';
+import { setCategoryMovies, setMovieDetails } from './Slice/CategoryMoviesSlice';
 import '../assest/MovieCate.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';

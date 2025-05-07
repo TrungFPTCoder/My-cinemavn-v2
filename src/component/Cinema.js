@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setMovieDetails } from './MovieStore';
+import { setMovieDetails } from './Slice/MovieDetailSlice';
 import { fetchMovieDetails } from '../service/MovieService';
 import { Helmet } from 'react-helmet';
 import '../assest/Cinema.css';

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { fetchSearchMovie } from '../service/MovieService';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchMovies } from './MovieStore';
+import { setSearchMovies } from './Slice/SearchMovieSlice';
 import '../assest/MovieCate.css';
 import LoadingComponent from './LoadingComponent';
 import PaginationSearch from './PaginationSearch';

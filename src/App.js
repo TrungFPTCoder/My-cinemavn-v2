@@ -1,7 +1,8 @@
 
 import './App.css';
+import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from 'react-redux';
-import store from './component/MovieStore';
+import { store, persistor } from './component/MovieStore';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './component/Header';
 import Footer from './component/Footer';
@@ -14,7 +15,6 @@ import NewHeader from './component/NewHeader';
 import Input from './component/Test/Input';
 import { HelmetProvider } from 'react-helmet-async';
 import ChatWithAI from './ChatWithAI/ChatWithAI';
-
 // import ErrorPage from './component/ErrorPage';
 
 const WatchMovie = lazy(() => import('./component/WatchMovie'));
@@ -26,7 +26,7 @@ const NewMovie = lazy(() => import('./component/MovieCate/NewMovie'));
 const CountryMovie = lazy(() => import('./component/MovieCate/CountryMovie'));
 // thử nghiệm login
 const Login = lazy(() => import('./component/Auth-function/Login'));
-const SignIn = lazy(() => import('./component/Auth-function/SignIn'));
+const SignUp = lazy(() => import('./component/Auth-function/SignUp'));
 const Forget = lazy(() => import('./component/Auth-function/Forget'));
 const ResetPass = lazy(() => import('./component/Auth-function/ResetPass'));
 const LoginGoogle = lazy(() => import('./component/Auth-function/LoginGoogle'));
@@ -38,35 +38,37 @@ function App() {
     <HelmetProvider>
       <Suspense fallback={<LoadingComponent />}>
         <Provider store={store}>
-          <BrowserRouter>
-            {/* <Header /> */}
-            <NewHeader />
-            <ErrorBoundary>
-              <Routes>
-                <Route path='*' element={<ErrorPage />} />
-                <Route path='/' element={<MovieList />} />
-                <Route path='/danh-sach/:cate' element={<MovieCate />} />
-                <Route path='/danh-sach/phim-moi-cap-nhat' element={<NewMovie />} />
-                <Route path='/danh-sach/quoc-gia/:country' element={<CountryMovie />} />
-                <Route path='/tim-kiem' element={<SearchMovie />} />
-                <Route path='/watch/:slug' element={<WatchMovie />} />
-                <Route path='/watch/cinema/:slug' element={<Cinema />} />
-                <Route path='/introduction' element={<Introduction />} />
-                <Route path='/error' element={<ErrorPage />} />
-                {/* thử nghiệm login */}
-                <Route path='/login' element={<Login />} />
-                <Route path='/signin' element={<SignIn />} />
-                <Route path='/forget' element={<Forget />} />
-                <Route path='/resetpass' element={<ResetPass />} />
-                <Route path='/loginGoogle' element={<LoginGoogle />} />
-                {/* thử nghiệm personal page */}
-                <Route path='/personal' element={<PersonalPage />} />
-                {/* thử nghiệm gợi ý search */}
-                <Route path='/askMyAI' element={<ChatWithAI />} />
-              </Routes>
-            </ErrorBoundary>
-            <Footer />
-          </BrowserRouter>
+          <PersistGate loading={null} persistor={persistor}>
+            <BrowserRouter>
+              {/* <Header /> */}
+              <NewHeader />
+              <ErrorBoundary>
+                <Routes>
+                  <Route path='*' element={<ErrorPage />} />
+                  <Route path='/' element={<MovieList />} />
+                  <Route path='/danh-sach/:cate' element={<MovieCate />} />
+                  <Route path='/danh-sach/phim-moi-cap-nhat' element={<NewMovie />} />
+                  <Route path='/danh-sach/quoc-gia/:country' element={<CountryMovie />} />
+                  <Route path='/tim-kiem' element={<SearchMovie />} />
+                  <Route path='/watch/:slug' element={<WatchMovie />} />
+                  <Route path='/watch/cinema/:slug' element={<Cinema />} />
+                  <Route path='/introduction' element={<Introduction />} />
+                  <Route path='/error' element={<ErrorPage />} />
+                  {/* thử nghiệm login */}
+                  <Route path='/login' element={<Login />} />
+                  <Route path='/signup' element={<SignUp />} />
+                  <Route path='/forget' element={<Forget />} />
+                  <Route path='/resetpass' element={<ResetPass />} />
+                  <Route path='/loginGoogle' element={<LoginGoogle />} />
+                  {/* thử nghiệm personal page */}
+                  <Route path='/personal' element={<PersonalPage />} />
+                  {/* thử nghiệm gợi ý search */}
+                  <Route path='/askMyAI' element={<ChatWithAI />} />
+                </Routes>
+              </ErrorBoundary>
+              <Footer />
+            </BrowserRouter>
+          </PersistGate>
         </Provider>
       </Suspense>
     </HelmetProvider>

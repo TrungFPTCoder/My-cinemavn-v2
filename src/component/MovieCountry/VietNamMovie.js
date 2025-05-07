@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMovieCountry } from '../../service/MovieService';
-import { setvietNamMovies, setVietNamMovies } from '../MovieStore';
+import { setVietNamMovies } from '../Slice/VietNamMoviesSlice';
 import LoadingComponent from '../LoadingComponent';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';

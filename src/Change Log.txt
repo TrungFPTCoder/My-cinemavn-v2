@@ -263,5 +263,16 @@ Add new Component: SearchSuggest.js         |       SearchSuggest.css
 
 
 
+//////////////////////////////////////////----Thay đổi phương thức back-end, thực hiện thêm jwt---/////////////////////////
+Thay đổi toàn bộ Auth-function
+
+hoàn tất thao tác login và login with google (performance thấp cần điều chỉnh hoặc thêm hiệu ứng loading)
+hoàn tất register 
+
+
+
+
+
+
 
 

@@ -1,0 +1,189 @@
+import React, { useEffect, useState } from 'react';
+import '../../assest/SignIn.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faEyeSlash, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { registerUser } from '../../service/apiRequest';
+
+function SignUp() {
+    const [icon, setIcon] = useState(faEyeSlash);
+    const [iconAgain, setIconAgain] = useState(faEyeSlash);
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const isFetching = useSelector((state) => state.auth.register.isFetching);
+    // 25/01/2025
+    // 
+    const showPassword = () => {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+            setIcon(faEye);
+        } else {
+            x.type = "password";
+            setIcon(faEyeSlash);
+        }
+    };
+
+    const showPasswordAgain = () => {
+        var x = document.getElementById("passwordAgain");
+        if (x.type === "password") {
+            x.type = "text";
+            setIconAgain(faEye);
+        } else {
+            x.type = "password";
+            setIconAgain(faEyeSlash);
+        }
+    };
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                    document.querySelector(".swal2-container").style.zIndex = "9999";
+                    document.querySelector(".swal2-container").style.marginTop = "80px";
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Mật khẩu xác nhận không khớp"
+            });
+        } else {
+            const newUser = {
+                username: username,
+                email: email,
+                password: password
+            }
+            try {
+                const response = await registerUser(newUser, dispatch);
+                if (response.status === 201) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                            document.querySelector(".swal2-container").style.zIndex = "9999";
+                            document.querySelector(".swal2-container").style.marginTop = "80px";
+                        }
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "Đăng ký thành công"
+                    });
+                    navigate('/login');
+                } else if (response.status === 400) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                            document.querySelector(".swal2-container").style.zIndex = "9999";
+                            document.querySelector(".swal2-container").style.marginTop = "80px";
+                        }
+                    });
+                    Toast.fire({
+                        icon: "error",
+                        title: "Đăng ký thất bại",
+                        text: "Tài khoản đã tồn tại"
+                    });
+                }
+            } catch (error) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                        document.querySelector(".swal2-container").style.zIndex = "9999";
+                        document.querySelector(".swal2-container").style.marginTop = "80px";
+                    }
+                });
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Đăng ký thất bại',
+                    text: 'Có lỗi xảy ra, vui lòng thử lại sau.'
+                });
+            }
+        }
+    }
+
+    return (
+        <div>
+            <Helmet>
+                <title>Đăng ký</title>
+                <meta name="description" content='Đăng ký' />
+            </Helmet>
+            <section style={{ paddingTop: '80px' }}>
+                <div className={`signIn-box ${isFetching ? 'loading' : ''}`}>
+                    <div className="signIn-value">
+                        <form onSubmit={handleSignUp}>
+                            <h3>Đăng ký</h3>
+                            <div className="inputbox">
+                                <i><FontAwesomeIcon icon={faUser} /></i>
+                                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                                <label>Họ và tên</label>
+                            </div>
+                            <div className="inputbox">
+                                <i><FontAwesomeIcon icon={faEnvelope} /></i>
+                                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                                <label>Email</label>
+                            </div>
+                            <div className="inputbox">
+                                <i onClick={showPassword} style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={icon} /></i>
+                                <input type="password" id='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
+                                <label>Mật khẩu</label>
+                            </div>
+                            <div className="inputbox">
+                                <i onClick={showPasswordAgain} style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={iconAgain} /></i>
+                                <input type="password" id='passwordAgain' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+                                <label>Xác nhận mật khẩu</label>
+                            </div>
+                            <div className="forget mb-4">
+                                <label className="d-flex justify-content-center h6"><input type="checkbox" />Đồng ý với chính sách của chúng tôi</label>
+                            </div>
+                            <button className='glow-on-hover position-relative'>
+                                Đăng ký
+                            </button>
+                            <div className="register login-now position-relative">
+                                <p>Nếu bạn đã có tài khoản, <Link to={'/login'}>đăng nhập ngay</Link></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {isFetching && (
+                    <div className="loading-overlay">
+                        <div className="spinner"></div>
+                    </div>
+                )}
+            </section>
+        </div>
+    );
+}
+
+export default SignUp;

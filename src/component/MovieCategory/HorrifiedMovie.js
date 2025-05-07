@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMovieCate } from '../../service/MovieService';
-import { setHorrifiedMovies } from '../MovieStore';
+import { setHorrifiedMovies } from '../Slice/HorrifiedMoviesSlice';
 import LoadingComponent from '../LoadingComponent';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';

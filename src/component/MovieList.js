@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNewMovies } from "../service/MovieService";
-import { setNewMovies } from "./MovieStore";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlayCircle } from "@fortawesome/free-regular-svg-icons";
@@ -9,7 +8,8 @@ import '../assest/MovieList.css';
 import { Helmet } from "react-helmet-async";
 import LoadingComponent from "./LoadingComponent";
 import { fetchMovieDetails } from '../service/MovieService';
-import { setMovieDetails } from './MovieStore';
+import { setMovieDetails } from './Slice/MovieDetailSlice';
+import { setNewMovies } from "./Slice/NewMovieSlice";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -31,6 +31,7 @@ import VietNamMovie from "./MovieCountry/VietNamMovie";
 
 function MovieList() {
   const newMovies = useSelector((state) => state.newMovies);
+  // console.log(newMovies);
   const dispatch = useDispatch();
   const carouselRef = useRef(null);
   const [scrollDistance, setScrollDistance] = useState(0);
@@ -44,6 +45,7 @@ function MovieList() {
         setLoading(true);
         const moviesData = await fetchNewMovies();
         dispatch(setNewMovies(moviesData));
+        setLoading(false);
       } catch (error) {
         console.error("Failed to load movies:", error);
       } finally {
@@ -111,9 +113,10 @@ function MovieList() {
     return `${hours}h ${remainingMinutes}m`;
   };
 
-  if (!newMovies.items) {
-    return <LoadingComponent />
-  }
+  // if (!newMovies.items) {
+  //   return <LoadingComponent />
+  // }
+  
 
   if (loading) {
     return <LoadingComponent />

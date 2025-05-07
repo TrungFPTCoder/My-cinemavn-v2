@@ -1,0 +1,29 @@
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+
+
+
+// test
+
+//////////
+//favorite Movie
+const favoMovieSlice = createSlice({
+    name: 'favoMovie',
+    initialState: {},
+    reducers:{
+        setFavoMovie(state, action){
+            return action.payload;
+        }
+    }
+})
+////////////////
+
+//04/05/2025
+
+
+// test
+// Thử nghiệm login
+export const { setAccount, addAccount } = accountSlice.actions;
+//favorite movie
+export const {setFavoMovie} = favoMovieSlice.actions;
+
+

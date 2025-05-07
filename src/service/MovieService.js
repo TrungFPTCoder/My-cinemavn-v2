@@ -3,7 +3,11 @@ import axios from "axios";
 // const API_URL_NEWMOVIES = 'https://phim.nguonc.com/api/films/phim-moi-cap-nhat';
 // thử nghiệm login
 const API_URL_ACCOUNTS = 'https://mycinemaapi.vercel.app';
+const API_URL_ADDACCOUNT = 'https://mycinemaapi.vercel.app/addAccount';
+// const API_URL_ACCOUNTS = 'https://test-backend-psi-five.vercel.app/';
+// const token = '10112004trung'
 // const API_URL_ACCOUNTS = 'http://localhost:9999/accounts'
+// const API_URL_ACCOUNTS_NEW = ''
 
 export const fetchNewMovies = async (page = 1) => {
     const response = await axios.get(`https://phim.nguonc.com/api/films/phim-moi-cap-nhat?page=${page}`);
@@ -31,9 +35,17 @@ export const fetchAccount = async () => {
     const response = await axios.get(API_URL_ACCOUNTS);
     return response.data;
 }
+// export const fetchAccount = async (token) => {
+//     const response = await axios.get(API_URL_ACCOUNTS, {
+//         headers: {
+//             Authorization: `Bearer ${token}`,
+//         },
+//     });
+//     return response.data;
+// };
 // thử nghiệm login google
 export const addAccountService = async (account) => {
-    const response = await axios.post(API_URL_ACCOUNTS, account);
+    const response = await axios.post(API_URL_ADDACCOUNT, account);
     return response.data;
 };
 //thử nghiệm add favo movie

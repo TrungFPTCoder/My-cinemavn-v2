@@ -28,7 +28,7 @@ function Forget() {
                                 </button>
                             </Link>
                             <div className="register position-relative">
-                                <p>Nếu bạn chưa có tài khoản, <Link to={'/signin'}>đăng ký ngay</Link></p>
+                                <p>Nếu bạn chưa có tài khoản, <Link to={'/signup'}>đăng ký ngay</Link></p>
                             </div>
                         </form>
                     </div>

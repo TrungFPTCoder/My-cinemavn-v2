@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { setSearchMovies, setSearchMoviesSuggest } from './MovieStore';
+import { setSearchMovies, setSearchMoviesSuggest } from './Slice/SearchMovieSliceSuggest';
 import { fetchSearchMovie } from '../service/MovieService';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingComponent from './LoadingComponent';
@@ -26,17 +26,18 @@ function SearchSuggest({ keywordFromURL }) {
     //     };
     //     loadMovieSearch();
     // }, [dispatch, keywordFromURL, currentPage]);
-    const loadMovieSearch = useCallback(debounce(async (keyword, page) => {
-        try {
-            setLoading(true);
-            const searchMovieData = await fetchSearchMovie(keyword, page);
-            dispatch(setSearchMoviesSuggest(searchMovieData));
-            setLoading(false);
-        } catch (error) {
-            setLoading(false);
-            console.error('Error fetching movie data:', error);
-        }
-    }, 300), [dispatch]);
+    const loadMovieSearch = useCallback(
+        debounce(async (keyword, page) => {
+            try {
+                setLoading(true);
+                const searchMovieData = await fetchSearchMovie(keyword, page);
+                dispatch(setSearchMoviesSuggest(searchMovieData));
+                setLoading(false);
+            } catch (error) {
+                setLoading(false);
+                console.error('Error fetching movie data:', error);
+            }
+        }, 300), [dispatch]);
     useEffect(() => {
         if (keywordFromURL) {
             loadMovieSearch(keywordFromURL, currentPage);
@@ -98,7 +99,7 @@ function SearchSuggest({ keywordFromURL }) {
     )
 }
 
-export default SearchSuggest
+export default SearchSuggest;
 // import React, { useEffect, useState, useCallback } from 'react';
 // import { setSearchMoviesSuggest } from './MovieStore';
 // import { fetchSearchMovie } from '../service/MovieService';

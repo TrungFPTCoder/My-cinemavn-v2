@@ -1,197 +1,66 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-const newMovieSlice = createSlice({
-    name: 'newMovies',
-    initialState: [],
-    reducers: {
-        setNewMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-const movieDetailsSlice = createSlice({
-    name: 'movieDetails',
-    initialState: {},
-    reducers: {
-        setMovieDetails(state, action) {
-            return action.payload;
-        }
-    }
-});
-const categoryMoviesSlice = createSlice({
-    name: 'categoryMovies',
-    initialState: {},
-    reducers: {
-        setCategoryMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-const searchMovieSlide = createSlice({
-    name: 'SearchMovies',
-    initialState: {},
-    reducers: {
-        setSearchMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-const searchMovieSlideSuggest = createSlice({
-    name: 'SearchMoviesSuggest',
-    initialState: {},
-    reducers: {
-        setSearchMoviesSuggest(state, action) {
-            return action.payload;
-        }
-    }
-});
-const countryMoviesSlice = createSlice({
-    name: 'countryMovies',
-    initialState: {},
-    reducers: {
-        setCountryMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-// test
-const chinaMoviesSlice = createSlice({
-    name: 'chinaMovies',
-    initialState: {},
-    reducers: {
-        setChinaMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-const koreanMoviesSlice = createSlice({
-    name: 'koreanMovies',
-    initialState: {},
-    reducers: {
-        setKoreanMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-const europeMoviesSlice = createSlice({
-    name: 'europeMovies',
-    initialState: {},
-    reducers: {
-        setEuropeMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-const vietNamMoviesSlice = createSlice({
-    name: 'vietNamMovies',
-    initialState: {},
-    reducers: {
-        setVietNamMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-const adventureMovieSlice = createSlice({
-    name: 'adventureMovies',
-    initialState: {},
-    reducers: {
-        setAdventureMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-const horrifiedMovieSlice = createSlice({
-    name: 'horrifiedMovies',
-    initialState: {},
-    reducers: {
-        setHorrifiedMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-const actionMovieSlice = createSlice({
-    name: 'actionMovies',
-    initialState: {},
-    reducers: {
-        setActionMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-const comedyMovieSlice = createSlice({
-    name: 'comedyMovies',
-    initialState: {},
-    reducers: {
-        setComedyMovies(state, action) {
-            return action.payload;
-        }
-    }
-});
-// Thử nghiệm login
-const accountSlice = createSlice({
-    name: 'account',
-    initialState: {},
-    reducers: {
-        setAccount(state, action) {
-            return action.payload;
-        },
-        addAccount(state, action) {
-            state.push(action.payload);//thực hiện action add thì push 
-        }
-    }
-});
-//////////
-//favorite Movie
-const favoMovieSlice = createSlice({
-    name: 'favoMovie',
-    initialState: {},
-    reducers:{
-        setFavoMovie(state, action){
-            return action.payload;
-        }
-    }
-})
-////////////////
-export const { setNewMovies } = newMovieSlice.actions;
-export const { setMovieDetails } = movieDetailsSlice.actions;
-export const { setCategoryMovies } = categoryMoviesSlice.actions;
-export const { setSearchMovies } = searchMovieSlide.actions;
-export const { setSearchMoviesSuggest } = searchMovieSlideSuggest.actions;
-export const { setCountryMovies } = countryMoviesSlice.actions;
-// test
-export const { setChinaMovies } = chinaMoviesSlice.actions;
-export const { setKoreanMovies } = koreanMoviesSlice.actions;
-export const { setEuropeMovies } = europeMoviesSlice.actions;
-export const { setAdventureMovies } = adventureMovieSlice.actions;
-export const { setHorrifiedMovies } = horrifiedMovieSlice.actions;
-export const { setActionMovies } = actionMovieSlice.actions;
-export const { setComedyMovies } = comedyMovieSlice.actions;
-export const { setVietNamMovies } = vietNamMoviesSlice.actions;
-// Thử nghiệm login
-export const { setAccount, addAccount } = accountSlice.actions;
-//favorite movie
-export const {setFavoMovie} = favoMovieSlice.actions;
-const store = configureStore({
-    reducer: {
-        newMovies: newMovieSlice.reducer,
-        movieDetails: movieDetailsSlice.reducer,
-        categoryMovies: categoryMoviesSlice.reducer,
-        searchMovies: searchMovieSlide.reducer,
-        searchMoviesSuggest: searchMovieSlideSuggest.reducer,
-        countryMovies: countryMoviesSlice.reducer,
-        // test
-        chinaMovies: chinaMoviesSlice.reducer,
-        koreanMovies: koreanMoviesSlice.reducer,
-        europeMovies: europeMoviesSlice.reducer,
-        vietNamMovies: vietNamMoviesSlice.reducer,
-        adventureMovies: adventureMovieSlice.reducer,
-        horrifiedMovies: horrifiedMovieSlice.reducer,
-        actionMovies: actionMovieSlice.reducer,
-        comedyMovies: comedyMovieSlice.reducer,
-        // Thử nghiệm login
-        account: accountSlice.reducer,
-        //favorite movie
-        favoMovie: favoMovieSlice.reducer
-    }
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import newMovieSlice from "./Slice/NewMovieSlice";
+import movieDetailsSlice from "./Slice/MovieDetailSlice";
+import categoryMoviesSlice from "./Slice/CategoryMoviesSlice";
+import searchMovieSlice from "./Slice/SearchMovieSlice";
+import searchMovieSliceSuggest from "./Slice/SearchMovieSliceSuggest";
+import countryMoviesSlice from "./Slice/CountryMoviesSlice";
+import chinaMoviesSlice from "./Slice/ChinaMoviesSlice";
+import koreanMoviesSlice from "./Slice/KoreanMoviesSlice";
+import europeMoviesSlice from "./Slice/EuropeMoviesSlice";
+import vietNamMoviesSlice from "./Slice/VietNamMoviesSlice";
+import adventureMovieSlice from "./Slice/AdventureMoviesSlice";
+import horrifiedMovieSlice from "./Slice/HorrifiedMoviesSlice";
+import actionMovieSlice from "./Slice/ActionMoviesSlice";
+import comedyMovieSlice from "./Slice/ComedyMoviesSlice";
+import authSlice from "./Slice/AuthSlice";
+import favoMoviesSlice from "./Slice/FavoriteMoviesSlice";
+import {
+    persistStore,
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+const authPersistConfig = {
+    key: 'auth',
+    storage,
+};
+
+const rootReducer = combineReducers({
+    newMovies: newMovieSlice,
+    movieDetails: movieDetailsSlice,
+    categoryMovies: categoryMoviesSlice,
+    searchMovies: searchMovieSlice,
+    searchMoviesSuggest: searchMovieSliceSuggest,
+    countryMovies: countryMoviesSlice,
+    // test
+    chinaMovies: chinaMoviesSlice,
+    koreanMovies: koreanMoviesSlice,
+    europeMovies: europeMoviesSlice,
+    vietNamMovies: vietNamMoviesSlice,
+    adventureMovies: adventureMovieSlice,
+    horrifiedMovies: horrifiedMovieSlice,
+    actionMovies: actionMovieSlice,
+    comedyMovies: comedyMovieSlice,
+    // auth
+    auth: persistReducer(authPersistConfig, authSlice),
+    favoMovies: persistReducer(authPersistConfig, favoMoviesSlice)
 });
 
-export default store;
+export const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        }),
+});
+
+export let persistor = persistStore(store);

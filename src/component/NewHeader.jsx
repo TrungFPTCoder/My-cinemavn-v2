@@ -6,6 +6,10 @@ import SearchSuggest from './SearchSuggest';//add new in 07/02/2025
 // thử nghiệm gợi ý search
 import '../assest/NewNavbar.css'
 import { assets } from '../assest/AI-assets/assets';
+import { useDispatch, useSelector } from 'react-redux';
+import { createAxios } from './createInstance';
+import { logOut } from '../service/apiRequest';
+import { logoutSuccess } from './Slice/AuthSlice';
 function NewHeader() {
     const [navbarBg, setNavbarBg] = useState('background-navbar pt-2 pb-2');//change new in 07/02/2025
     const [searchKeyword, setSearchKeyword] = useState('');
@@ -14,7 +18,11 @@ function NewHeader() {
     const [display, setDisplay] = useState("d-none"); // new in 07/02/2025
     const searchInputRef = useRef(null);
     const searchRef = useRef([]);//change new in 07/02/2025
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.login.currentUser);
+    const isFetching = useSelector((state) => state.auth.login.isFetching);
     const handleScroll = () => {
         if (window.scrollY > 30) {
             setNavbarBg('background-navbar-2 tran-nav');//change new in 07/02/2025
@@ -51,17 +59,15 @@ function NewHeader() {
         }
         setSearchKeyword('');
     };
-    // lấy data user
-    // const location = useLocation();
-    // const { name, picture } = location.state || {};
-    const name = sessionStorage.getItem('user');
-    const picture = sessionStorage.getItem('picture');
-    // console.log(name, picture);
-    const handleRemoveSession = () => {
-        sessionStorage.removeItem('user');
-        sessionStorage.removeItem('picture');
-        sessionStorage.removeItem('email');
+    // logout
+    const accessToken = user?.accessToken;
+    const id = user?._id;
+    let axiosJWT = createAxios(user, dispatch, logoutSuccess);
+
+    const handleLogout = () => {
+        logOut(dispatch, id, navigate, accessToken, axiosJWT);
     }
+
     // new in 07/02/2025
     const handleInputChange = (e) => {
         setSearchKeyword(e.target.value);
@@ -282,12 +288,11 @@ function NewHeader() {
                                     </div>
                                 </ul>
                             </div>
-
                             <div style={{ marginLeft: 'auto' }}>
-                                {name && picture ? (
+                                {user ? (
                                     <>
                                         <div className="dropdown">
-                                            <img src={picture}
+                                            <img src={user.userImage}
                                                 className="dropdown-toggle border border-light p-1 rounded-circle" data-bs-toggle="dropdown"
                                                 style={{ height: '45px', cursor: 'pointer' }} alt="" />
                                             <ul className="dropdown-menu" style={{ transition: '0.5s ease', width: '350px' }}>
@@ -296,13 +301,12 @@ function NewHeader() {
                                                         <div className="dropdown---header nav-hover">
                                                             <div className="dropdown-item nav-hover">
                                                                 <img className="rounded-circle"
-                                                                    src={picture} alt="Profile Picture" width="43" height="43" />
-                                                                {name}
+                                                                    src={user.userImage} alt="Profile Picture" width="43" height="43" />
+                                                                {user.username}
                                                             </div>
                                                         </div>
                                                     </Link>
                                                 </li>
-                                                {/* làm lại */}
                                                 <li className='d-flex align-items-center mt-3 mx-2'>
                                                     <Link to={'/askMyAI'} className="text-decoration-none text-black w-100 mx-2">
                                                         <div className='dropdown-item rounded-1 setting nav-hover colorful-button'>
@@ -314,12 +318,12 @@ function NewHeader() {
                                                         </div>
                                                     </Link>
                                                 </li>
-                                                <li className='d-flex align-items-center mt-2 mx-2'>
-                                                    <Link to={'/'} className="text-decoration-none text-black w-100 mx-2" onClick={handleRemoveSession}>
-                                                        <div className='dropdown-item rounded-1 setting nav-hover p-2'>
+                                                <li className='d-flex align-items-center m-3 mx-2'>
+                                                    <button className="w-100 mx-2 border-0 p-0 rounded-2" style={{ boxShadow: '0 0 2px black' }} onClick={handleLogout} >
+                                                        <div className='dropdown-item setting rounded-2 nav-hover p-2'>
                                                             <FontAwesomeIcon icon={faSignOutAlt} /> &nbsp; Đăng xuất
                                                         </div>
-                                                    </Link>
+                                                    </button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -334,7 +338,6 @@ function NewHeader() {
 
                                     </>
                                 )}
-
                             </div>
 
                         </div>
@@ -388,20 +391,19 @@ function NewHeader() {
                 </div>
                 <div className="collapse mt-1 mx-1" id="collapseExample">
                     <div className="card card-body border-1 border-light bg-dark text-light">
-
-                        {picture && name ? (
+                        {user ? (
                             <>
                                 <Link to={'personal'} className="text-decoration-none">
                                     <div className="nav-item mb-3 p-2 rounded-5 nav-hover ">
                                         <div style={{ fontSize: '16px' }} className="d-flex align-items-center justify-content-center">
                                             <img className="rounded-circle mx-2"
-                                                src={picture}
+                                                src={user.userImage}
                                                 alt="Profile Picture" width="30" height="30" />
-                                            {name}
+                                            {user.username}
                                         </div>
                                     </div>
                                 </Link>
-                                <Link to={'/'} className='text-decoration-none' onClick={handleRemoveSession}>
+                                <Link to={'/'} className='text-decoration-none'>
                                     <div className="nav-item mb-4 p-2 rounded-5 nav-hover">
                                         <div style={{ fontSize: '16px' }} className="text-center">
                                             <FontAwesomeIcon icon={faSignOutAlt} className='mx-2' />
@@ -578,6 +580,11 @@ function NewHeader() {
 
                 </div>
             </div >
+            {isFetching && (
+                <div className="loading-overlay">
+                    <div className="spinner"></div>
+                </div>
+            )}
         </div >
     )
 }
