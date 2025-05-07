@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const searchMovieSlideSuggest = createSlice({
+const searchMovieSliceSuggest = createSlice({
     name: 'SearchMoviesSuggest',
     initialState: {},
     reducers: {
@@ -9,5 +9,5 @@ const searchMovieSlideSuggest = createSlice({
         }
     }
 });
-export const { setSearchMoviesSuggest } = searchMovieSlideSuggest.actions;
-export default searchMovieSlideSuggest.reducer;
+export const { setSearchMoviesSuggest } = searchMovieSliceSuggest.actions;
+export default searchMovieSliceSuggest.reducer;

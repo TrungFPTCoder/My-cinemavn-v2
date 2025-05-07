@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { setSearchMovies, setSearchMoviesSuggest } from './Slice/SearchMovieSliceSuggest';
 import { fetchSearchMovie } from '../service/MovieService';
+import { setSearchMoviesSuggest } from './Slice/SearchMovieSliceSuggest';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingComponent from './LoadingComponent';
 import '../assest/SearchSuggest.css';
