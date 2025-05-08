@@ -51,13 +51,13 @@ function MovieCate() {
             <div className='row'>
                 {categoryMovies.items.map((movie) => (
                     <div className='col-6 col-md-3 col-sm-4 col-xl-2 mb-3'>
-                        <div className='card position-relative tooltip-wrapper border-0 w-100 movie--width'>
-                            <div className='img-container position-relative overflow-hidden'>
+                        <div className='card position-relative tooltip-wrapper border-0 w-100 movie--width1'>
+                            <div className='img-container-cate position-relative overflow-hidden'>
                                 <img
                                     src={movie.thumb_url}
                                     alt={movie.name}
                                     className='hover-thumb w-100'
-                                    height={350}
+                                    // style={{height:'350px'}}
                                 />
                                 <div className="play-button">
                                     <Link to={`/watch/${movie.slug}`}>

@@ -87,7 +87,7 @@
     padding: 5px 10px;
     border-radius: 5px;
     position: absolute;
-    top: 275px;
+    top: 105%;
     /* bottom: 0px; */
     left: 50%;
     transform: translateX(-50%);
@@ -114,3 +114,14 @@
     visibility: visible;
     opacity: 1;
 }
+/* @media screen and (max-width: 768px) {
+  .tooltip-content-favo {
+    top:100%;
+  }
+  
+}
+@media screen and (min-width:768px) {
+  .tooltip-content-favo {
+    top: 275px;
+  }
+} */

@@ -31,7 +31,10 @@ const authPersistConfig = {
     key: 'auth',
     storage,
 };
-
+const FavoPersistConfig = {
+    key: 'favoMovies',
+    storage,
+};
 const rootReducer = combineReducers({
     newMovies: newMovieSlice,
     movieDetails: movieDetailsSlice,
@@ -50,7 +53,7 @@ const rootReducer = combineReducers({
     comedyMovies: comedyMovieSlice,
     // auth
     auth: persistReducer(authPersistConfig, authSlice),
-    favoMovies: persistReducer(authPersistConfig, favoMoviesSlice)
+    favoMovies: persistReducer(FavoPersistConfig, favoMoviesSlice)
 });
 
 export const store = configureStore({
