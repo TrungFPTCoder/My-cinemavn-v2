@@ -1,8 +1,8 @@
-.nav-item a {
+.nav-item {
     border-radius: 10px;
     padding: 5px 10px;
 }
-.nav-item-hover a:hover {
+.nav-item-hover:hover {
     background: orange;
     transition: 0.5s ease;
 }
@@ -43,6 +43,7 @@
 
 .dropdown-menu-hover li a {
     width: fit-content;
+    margin-bottom: 3%;
 }
 .dropdown-menu-hover li a:focus {
     background-color: inherit;

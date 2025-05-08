@@ -111,16 +111,6 @@ function NewHeader() {
                                     </div>
                                 </Link>
                             </div>
-                            {/* <div className="position-relative mx-2">
-                                <form role='search' onSubmit={handleSearchSubmit}>
-                                    <input type="text" placeholder="Tìm kiếm phim..." className="form-control search-input" size="45"
-                                        style={{ paddingLeft: '40px' }} value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)} />
-                                    <button className='search-btn'>
-                                        <FontAwesomeIcon icon={faSearch} color='white' className="position-absolute " />
-                                    </button>
-                                </form>
-                            </div> */}
-
                             {/* change new in 07/02/2025 */}
                             <div className="position-relative mx-2" ref={el => searchRef.current[0] = el}>
                                 <form role='search' onSubmit={handleSearchSubmit}>
@@ -386,15 +376,16 @@ function NewHeader() {
                                 <FontAwesomeIcon icon={isSearchActive ? faTimes : faSearch} className={isSearchActive ? `text-danger` : `text-light`} />
                             </button>
                         </div>
-
                     </div>
                 </div>
+
                 <div className="collapse mt-1 mx-1" id="collapseExample">
                     <div className="card card-body border-1 border-light bg-dark text-light">
                         {user ? (
                             <>
                                 <Link to={'personal'} className="text-decoration-none">
-                                    <div className="nav-item mb-3 p-2 rounded-5 nav-hover ">
+                                    <div className="nav-item mb-3 p-2 rounded-5 nav-hover" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                         <div style={{ fontSize: '16px' }} className="d-flex align-items-center justify-content-center">
                                             <img className="rounded-circle mx-2"
                                                 src={user.userImage}
@@ -403,7 +394,8 @@ function NewHeader() {
                                         </div>
                                     </div>
                                 </Link>
-                                <button className='text-decoration-none border-0 mb-4 p-2 rounded-5 nav-item nav-hover' onClick={handleLogout}>
+                                <button className='text-decoration-none border-0 mb-4 p-2 rounded-5 nav-item nav-hover' onClick={handleLogout} data-bs-toggle="collapse"
+                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                     <div style={{ fontSize: '16px' }} className="text-center">
                                         <FontAwesomeIcon icon={faSignOutAlt} className='mx-2' />
                                         Đăng xuất
@@ -414,23 +406,42 @@ function NewHeader() {
                             <>
                                 <Link to={'/login'}>
                                     <div className="nav-item mb-4">
-                                        <button type="button" className="btn btn-light rounded-5 p-2 px-3 w-100">
+                                        <button type="button" className="btn btn-light rounded-5 p-2 px-3 w-100" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                             <FontAwesomeIcon icon={faUser} /> &nbsp; Đăng nhập
                                         </button>
                                     </div>
                                 </Link>
                             </>
                         )}
-                        <div className="nav-item nav-item-hover mb-2">
+                        {/* <div className="nav-item nav-item-hover mb-2">
                             <Link to={`/danh-sach/phim-le`} className="nav-link">Phim lẻ</Link>
-                        </div>
-                        <div className="nav-item nav-item-hover mb-2">
-                            <Link to={`/danh-sach/phim-bo`} className="nav-link">Phim bộ</Link>
+                        </div> */}
+                        <Link to={`/danh-sach/phim-le`} className="nav-link nav-item-hover mb-2 rounded-3">
+                            <div className='nav-item' data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Phim lẻ
+                            </div>
+                        </Link>
+                        <Link to={`/danh-sach/phim-bo`} className="nav-link nav-item-hover mb-2 rounded-3">
+                            <div className='nav-item' data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Phim bộ
+                            </div>
+                        </Link>
+                        <Link to={`/danh-sach/phim-dang-chieu`} className="nav-link nav-item-hover mb-2 rounded-3">
+                            <div className='nav-item' data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Phim đang chiếu
+                            </div>
+                        </Link>
+                        {/* <div className="nav-item nav-item-hover mb-2">
+                            <Link to={`/danh-sach/phim-bo`} className="nav-link" >Phim bộ</Link>
                         </div>
                         <div className="nav-item nav-item-hover mb-2">
                             <Link to={`/danh-sach/phim-dang-chieu`} className="nav-link">Phim đang chiếu</Link>
-                        </div>
-                        <div className="nav-item dropdown mb-3" style={{ paddingLeft: '10px' }}>
+                        </div> */}
+                        <div className="nav-item dropdown mb-2" style={{ paddingLeft: '10px' }}>
                             <div className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Thể loại
@@ -439,70 +450,116 @@ function NewHeader() {
                                 <div className='row'>
                                     <div className='col-6'>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/chinh-kich'}>Phim chính
-                                                kịch</Link>
-                                        </li>
-                                        <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/hanh-dong'}>Phim hành
-                                                động</Link>
-                                        </li>
-                                        <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/phim-hai'}>Phim hài
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/chinh-kich'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim chính kịch
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/lich-su'}>Phim lịch sử
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/hanh-dong'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim hành động
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/bi-an'}>Phim bí ẩn</Link>
-                                        </li>
-                                        <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/gay-can'}>Phim gay cấn
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/phim-hai'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim hài
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/tinh-cam'}>Phim tình cảm
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/lich-su'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim lịch sử
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/bi-an'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim bí ẩn
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/gay-can'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim gay cấn
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/tinh-cam'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim tình cảm
+                                                </div>
                                             </Link>
                                         </li>
                                     </div>
                                     <div className='col-6'>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/phieu-luu'}>Phim phiêu
-                                                lưu</Link>
-                                        </li>
-                                        <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/hinh-su'}>Phim hình sự
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/phieu-luu'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim phiêu lưu
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/gia-dinh'}>Phim gia đình
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/hinh-su'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim hình sự
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/kinh-di'}>Phim kinh dị
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/gia-dinh'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim gia đình</div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/lang-man'}>Phim lãng mạn
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/kinh-di'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim kinh dị</div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/chien-tranh'}>Phim chiến
-                                                tranh</Link>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/lang-man'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim lãng mạn</div>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/hoat-hinh'}>Phim hoạt
-                                                hình</Link>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/chien-tranh'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim chiến tranh
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/hoat-hinh'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim hoạt hình
+                                                </div>
+                                            </Link>
                                         </li>
                                     </div>
                                     <div className='col-6'>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/gia-tuong'}>Phim giả
-                                                tưởng</Link>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/gia-tuong'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim giả tưởng
+                                                </div>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/tam-ly'}>Phim tâm lý
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/tam-ly'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Phim tâm lý
+                                                </div>
                                             </Link>
                                         </li>
                                     </div>
@@ -519,56 +576,169 @@ function NewHeader() {
                                 <div className='row'>
                                     <div className='col-6'>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/au-my'}>Âu Mỹ</Link>
-                                        </li>
-                                        <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/anh'}>Anh</Link>
-                                        </li>
-                                        <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/trung-quoc'}>Trung quốc
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/au-my'}>
+                                                <div data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Âu Mỹ
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/indonesia'}>Indonesia
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/anh'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Anh
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/viet-nam'}>Việt Nam</Link>
-                                        </li>
-                                        <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/Phap'}>Pháp
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/trung-quoc'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Trung quốc
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/hong-kong'}>Hồng Kông
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/indonesia'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Indonesia
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/viet-nam'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Việt Nam
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/phap'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Pháp
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/hong-kong'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Hồng Kông
+                                                </div>
                                             </Link>
                                         </li>
                                     </div>
                                     <div className='col-6'>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/han-quoc'}>Hàn Quốc</Link>
-                                        </li>
-                                        <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/nhat-ban'}>Nhật bản
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/han-quoc'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Hàn Quốc
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/thai-lan'}>Thái Lan
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/nhat-ban'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Nhật Bản
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/dai-loan'}>Đài Loan
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/thai-lan'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Thái Lan
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/nga'}>Nga
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/dai-loan'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Đài Loan
+                                                </div>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/ha-lan'}>Hà Lan</Link>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/nga'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Nga
+                                                </div>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/philippines'}>Philippines</Link>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/ha-lan'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Hà Lan
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link className="dropdown-item text-light" to={'/danh-sach/quoc-gia/philippines'}>
+                                                <div
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseExample"
+                                                >
+                                                    Philippines
+                                                </div>
+                                            </Link>
                                         </li>
                                     </div>
                                 </div>
