@@ -478,7 +478,6 @@ function WatchMovie() {
         const remainingMinutes = minutes % 60;
         return `${hours}h ${remainingMinutes}m`;
     };
-    console.log(movieDetails);
     return (
         <div className='bg-dark' >
             {/* background image */}
