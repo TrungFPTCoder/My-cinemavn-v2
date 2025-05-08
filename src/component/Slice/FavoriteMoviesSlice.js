@@ -8,7 +8,17 @@ const FavoriteMoviesSlice = createSlice({
             isFetching: false,
             error: false,
         },
-        msg:""
+        addFavoMovie:{
+            isFetching: false,
+            error: false,
+            success: false,
+        },
+        deleteFavoMovie:{
+            isFetching: false,
+            error: false,
+            success: false,
+        },
+        // msg:""
     },
     reducers: {
         getFavoStart: (state) => {
@@ -22,13 +32,49 @@ const FavoriteMoviesSlice = createSlice({
         getFavoFailure: (state) => {
             state.favoMovies.isFetching = false;
             state.favoMovies.error = true;
-        }
+        },
+        resetFavoMovies: (state) => {
+            state.favoMovies.allFavoMovies = null;
+            state.favoMovies.isFetching = false;
+            state.favoMovies.error = false;
+        },
+        addFavoStart: (state) => {
+            state.addFavoMovie.isFetching = true;
+        },
+        addFavoSuccess: (state) => {
+            state.addFavoMovie.isFetching = false;
+            state.addFavoMovie.success = true;
+            state.addFavoMovie.error = false;
+        },
+        addFavoFailure: (state) => {
+            state.addFavoMovie.isFetching = false;
+            state.addFavoMovie.error = true;
+        },
+        deleteFavoStart: (state) => {
+            state.deleteFavoMovie.isFetching = true;
+        },
+        deleteFavoSuccess: (state) => {
+            state.deleteFavoMovie.isFetching = false;
+            state.deleteFavoMovie.success = true;
+            state.deleteFavoMovie.error = false;
+        },
+        deleteFavoFailure: (state) => {
+            state.deleteFavoMovie.isFetching = false;
+            state.deleteFavoMovie.error = true;
+        },
     },
 });
 export const { 
     getFavoStart, 
     getFavoSuccess, 
-    getFavoFailure    
+    getFavoFailure,
+    addFavoStart,
+    addFavoSuccess,
+    addFavoFailure,
+    resetFavoMovies,
+    deleteFavoStart,
+    deleteFavoSuccess,
+    deleteFavoFailure
 } = FavoriteMoviesSlice.actions;
 
 export default FavoriteMoviesSlice.reducer;

@@ -64,16 +64,16 @@
 //     // useEffect(() => {
 //     //     username = sessionStorage.getItem('user');
 //     //     email = sessionStorage.getItem('email');
-    
+
 //     //     // Kiểm tra nếu accounts chưa được fetch
 //     //     if (!accounts || accounts.length === 0) {
 //     //         return;
 //     //     }
-    
+
 //     //     const accountUser = accounts.find(z
 //     //         (account) => account.FullName === username && account.email === email
 //     //     );
-    
+
 //     //     if (accountUser) {
 //     //         const isFollowed = accountUser.FavoriteMovie.some((movie) => movie.slug === slug);
 //     //         setFollow(isFollowed);
@@ -82,7 +82,7 @@
 //     // if (loading) {
 //     //     return <div><LoadingComponent /></div>;
 //     // }
-    
+
 //     // useEffect(() => {
 //     //     const loadMovieDetails = async () => {
 //     //         setLoading(true);
@@ -101,11 +101,11 @@
 //     //     // const followedMovies = favoMovies.
 //     //     const followedMovies = ;        
 //     //     return followedMovies.some((movie) => movie.slug === slug);        
-        
+
 //     // }
 //     // setFollow(accountUser.FavoriteMovie.some((movie) => movie.slug === slug));
 
-    
+
 //     // console.log(followMovie());
 //     // setFollow(followMovie);
 //     // const formattedDate = new Date(movieDetails.created).toLocaleDateString('vi-VN', {
@@ -449,11 +449,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faClosedCaptioning } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { addFavoMovie, deleteFavoMovie } from '../service/apiRequest';
+import { createAxios } from './createInstance';
+import { loginSuccess } from './Slice/AuthSlice';
 function WatchMovie() {
     const { slug } = useParams();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
-
+    const [follow, setFollow] = useState(false);//init là chưa follow
+    const user = useSelector((state) => state.auth.login.currentUser);
+    const favoMovies = useSelector(state => state.favoMovies.favoMovies.allFavoMovies);
+    const loadingFavoMovies = useSelector(state => state.favoMovies.favoMovies.isFetching);
+    const axiosJWT = createAxios(user, dispatch, loginSuccess);
+    // console.log(favoMovies);
+    // LOGIC: nếu favoMovie === null thì Yêu cầu đăng nhập(sai)
+    // nếu favoMovie !== null thì kiểm tra xem slug có === slug được lấy từ favoMovie hay không
+    // nếu === thì setFollow(true) ngược lại setFollow(false)
+    // if(favoMovies !== null) {//set follow nếu có
+    //     const isFollowed = favoMovies.favoriteMovies.some((movie) => movie.slug === slug);
+    //     console.log(isFollowed);
+    //     setFollow(isFollowed);
+    // }
+    useEffect(() => {
+        if (favoMovies !== null) {
+            const isFollowed = favoMovies.favoriteMovies.some((movie) => movie.slug === slug);
+            setFollow(isFollowed); // Chỉ gọi setFollow khi favoMovies hoặc slug thay đổi
+        }
+    }, [favoMovies, slug]); // Thêm favoMovies và slug vào dependency array
     const movieDetails = useSelector((state) => state.movieDetails);
     useEffect(() => {
         const loadMovieDetails = async () => {
@@ -464,7 +489,7 @@ function WatchMovie() {
         };
         loadMovieDetails();
     }, [dispatch, slug]);
-    if (loading) {
+    if (loading || loadingFavoMovies) {
         return <div><LoadingComponent></LoadingComponent></div>
     }
     const formattedDate = new Date(movieDetails.created).toLocaleDateString('vi-VN', {
@@ -477,6 +502,33 @@ function WatchMovie() {
         const hours = Math.floor(minutes / 60);
         const remainingMinutes = minutes % 60;
         return `${hours}h ${remainingMinutes}m`;
+    };
+    const handleFollowClick = () => {
+        if (follow) {//nếu đã follow thì hiện modal xác nhận hủy theo dõi
+            // Show the modal to confirm the action (đã follow)
+            const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            modal.show();
+        } else {//nếu chưa follow
+            if (!user) {//nếu chưa login thì hiện modal yêu cầu đăng nhập
+                const modal = new bootstrap.Modal(document.getElementById('exampleModal1'));
+                modal.show();
+            }
+            else {//đã login chưa follow thì add và set thành true
+                const infoMovie = {
+                    name: movieDetails.name,
+                    slug: movieDetails.slug,
+                    thumb_url: movieDetails.thumb_url,
+                    poster_url: movieDetails.poster_url,
+                }
+                addFavoMovie(user.accessToken, dispatch, user.email, infoMovie, axiosJWT);
+                setFollow(true);
+            }
+        }
+    };
+    // console.log(follow);
+    const confirmUnfollow = () => {//tạm thời (bỏ phương thức delete vào đây)
+        deleteFavoMovie(user.accessToken, dispatch, slug, user.email, axiosJWT);
+        setFollow(false);
     };
     return (
         <div className='bg-dark' >
@@ -491,7 +543,6 @@ function WatchMovie() {
                 <Helmet>
                     <title>Xem phim {movieDetails.name}</title>
                     <meta name="description" content={movieDetails.name} />
-
                     <meta property="og:title" content={movieDetails.name} />
                     <meta property="og:description" content={movieDetails.description} />
                     <meta property="og:image" content={movieDetails.thumb_url} />
@@ -528,7 +579,7 @@ function WatchMovie() {
                                     </div>
                                 </div>
                                 <div className='d-flex flex-wrap mt-2'>
-                                    {movieDetails.category[2].list.map((item) => (
+                                    {movieDetails.category?.[2]?.list.map((item) => (
                                         <div className='category--movie mx-1 mb-2 p-1 px-2 rounded' key={item.id}>
                                             {item.name}
                                         </div>
@@ -537,7 +588,7 @@ function WatchMovie() {
                                 <div className='mt-3'>
                                     <strong>Giới thiệu: </strong> <br />
                                     <small style={{ color: '#ddd' }}>{movieDetails.description}</small> <br />
-                                    <p className='mt-3' style={{ color: '#ddd' }}><strong className='text-light'>Quốc gia: </strong>{movieDetails.category[4].list[0].name}</p>
+                                    <p className='mt-3' style={{ color: '#ddd' }}><strong className='text-light'>Quốc gia: </strong>{movieDetails.category?.[4]?.list[0].name}</p>
                                     <p className='mt-3' style={{ color: '#ddd' }}><strong className='text-light'>Đạo diễn: </strong>{movieDetails.director ? movieDetails.director : 'Đang cập nhật'}</p>
                                     <p className='mt-3' style={{ color: '#ddd' }}><strong className='text-light'>Diễn viên: </strong>{movieDetails.casts ? movieDetails.casts : 'Đang cập nhật'}</p>
                                     <p className='mt-3' style={{ color: '#ddd' }}><strong className='text-light'>Thời lượng: </strong>{convertTime(movieDetails.time) === '' ? convertTime(movieDetails.time) : 'Đang cập nhật'}</p>
@@ -547,12 +598,74 @@ function WatchMovie() {
                         <div className='col-md-8'>
                             <div className='card p-4 bg-dark'>
                                 <div className='d-flex'>
-                                    <Link to={`/watch/cinema/${slug}`} className='link-glow'>
+                                    {/* <Link to={`/watch/cinema/${slug}`} className='link-glow'>
                                         <button className='glow-on-hover position-relative' disabled={movieDetails.episodes.length === 0}>
                                             Xem phim
                                             <FontAwesomeIcon icon={faPlay} className='position-absolute' style={{ right: '18%', top: '18px' }} />
                                         </button>
-                                    </Link>
+                                    </Link> */}
+                                    <div className='row' style={{ width: '70%' }}>
+                                        <div className="col-md-5">
+                                            <Link to={`/watch/cinema/${slug}`} className='link-glow'>
+                                                <button className='glow-on-hover position-relative' disabled={movieDetails.episodes?.length === 0}>
+                                                    Xem phim
+                                                    <FontAwesomeIcon icon={faPlay} className='position-absolute play-icon' style={{ right: '18%', top: '18px' }} />
+                                                </button>
+                                            </Link>
+                                        </div>
+                                        <div className="col-md-7">
+                                            <button className={`btn ${follow ? 'btn-followed btn-danger' : 'btn-outline-danger'} text-light mt-2`} onClick={handleFollowClick}>
+                                                {follow ?
+                                                    (
+                                                        <div>
+                                                            <FontAwesomeIcon icon={faHeartSolid} color='red'></FontAwesomeIcon> Đã theo dõi
+                                                        </div>
+                                                    ) :
+                                                    (
+                                                        <div>
+                                                            <FontAwesomeIcon icon={faHeartRegular} /> Theo dõi phim
+                                                        </div>
+                                                    )
+                                                }
+                                            </button>
+                                            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div className="modal-dialog modal-dialog-centered">
+                                                    <div className="modal-content bg-dark text-light">
+                                                        <div className="modal-header" data-bs-theme="dark">
+                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Xác nhận</h1>
+                                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div className="modal-body text-center">
+                                                            Bạn có chắc chắn muốn hủy theo dõi phim này không? <br></br>
+                                                            Bạn vẫn có thể theo dõi lại phim này sau khi hủy.
+                                                        </div>
+                                                        <div className="modal-footer">
+                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                            <button type="button" className="btn btn-danger" onClick={confirmUnfollow} data-bs-dismiss="modal">Xác nhận</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div className="modal-dialog modal-dialog-centered">
+                                                    <div className="modal-content bg-dark text-light">
+                                                        <div className="modal-header" data-bs-theme="dark">
+                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Yêu cầu đăng nhập</h1>
+                                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div className="modal-body text-center">
+                                                            Vui lòng đăng nhập để theo dõi phim này.
+                                                        </div>
+                                                        <div className="modal-footer">
+                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                            <Link to={'/login'}><button type="button" className="btn btn-danger" data-bs-dismiss="modal">Đăng nhập</button></Link>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className='sharing d-flex align-items-center justify-content-center'>
                                         <h6 className='sharing--text'>Chia sẻ: </h6> &emsp;
                                         <div className='facebook-share-container'>
@@ -606,15 +719,15 @@ function WatchMovie() {
                                 </div>
                                 <div className="text-light mt-3">
                                     <ul className="nav nav-tabs nav--tabs" id="myTab" role="tablist">
-                                        <li className="nav-item" role="presentation">
+                                        <li className="nav-item p-0" role="presentation">
                                             <button className="nav-link nav--link active" id="description-tab" data-bs-toggle="tab"
                                                 data-bs-target="#description" type="button" role="tab">Tập phim</button>
                                         </li>
-                                        <li className="nav-item" role="presentation">
+                                        <li className="nav-item p-0" role="presentation">
                                             <button className="nav-link nav--link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details"
                                                 type="button" role="tab">Mô tả phim</button>
                                         </li>
-                                        <li className="nav-item" role="presentation">
+                                        <li className="nav-item p-0" role="presentation">
                                             <button className="nav-link nav--link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews"
                                                 type="button" role="tab">Bình luận</button>
                                         </li>
@@ -649,30 +762,30 @@ function WatchMovie() {
                                                     ))}
                                                 </div>
                                             </div>
-                                            
-                                                <div className='mt-5'>
-                                                    <h4 className='mb-3'>Các tập phim: </h4>
-                                                    <div className=''>
-                                                        {movieDetails.episodes.map((episode, index) => (
-                                                            <div key={episode.id}>
-                                                                {index > 0 && <hr />} {/* Add <hr> before each episode group starting from the second one */}
-                                                                <h6>{episode.server_name}</h6>
-                                                                <div className='row g-2 mt-2 mb-2'>
-                                                                    {episode.items.map((item) => (
-                                                                        <div key={item.id} className='col-4 col-md-2 mb-1'>
-                                                                            <Link to={`/watch/cinema/${slug}?tap=${item.name}&type=${episode.server_name}`} className='text-decoration-none text-light'>
-                                                                                <div className='category--movie p-2 px-2 rounded text-center'>
-                                                                                    Tập {item.name} &nbsp; <FontAwesomeIcon icon={faPlay}></FontAwesomeIcon>
-                                                                                </div>
-                                                                            </Link>
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
+
+                                            <div className='mt-5'>
+                                                <h4 className='mb-3'>Các tập phim: </h4>
+                                                <div className=''>
+                                                    {movieDetails.episodes.map((episode, index) => (
+                                                        <div key={episode.id}>
+                                                            {index > 0 && <hr />} {/* Add <hr> before each episode group starting from the second one */}
+                                                            <h6>{episode.server_name}</h6>
+                                                            <div className='row g-2 mt-2 mb-2'>
+                                                                {episode.items.map((item) => (
+                                                                    <div key={item.id} className='col-4 col-md-2 mb-1'>
+                                                                        <Link to={`/watch/cinema/${slug}?tap=${item.name}&type=${episode.server_name}`} className='text-decoration-none text-light'>
+                                                                            <div className='category--movie p-2 px-2 rounded text-center'>
+                                                                                Tập {item.name} &nbsp; <FontAwesomeIcon icon={faPlay}></FontAwesomeIcon>
+                                                                            </div>
+                                                                        </Link>
+                                                                    </div>
+                                                                ))}
                                                             </div>
-                                                        ))}
-                                                    </div>
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            
+                                            </div>
+
                                         </div>
                                         <div className="tab-pane fade" id="details" role="tabpanel">
                                             <p>{movieDetails.description}</p>

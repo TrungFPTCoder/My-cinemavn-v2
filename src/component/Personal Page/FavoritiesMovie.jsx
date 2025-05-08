@@ -16,8 +16,9 @@ function FavoritiesMovie() {
     const user = useSelector(state => state.auth.login.currentUser);
     const axiosJWT = createAxios(user, dispatch, loginSuccess);
     const favoMovies = useSelector(state => state.favoMovies.favoMovies.allFavoMovies);
+    const loadingFavoMovies = useSelector(state => state.favoMovies.favoMovies.isFetching);
     // const favoMovies = useSelector(state => state.favoMovies.favoriteMovies);
-    const loading = useSelector(state => state.favoMovies.isFetching);
+    // const loading = useSelector(state => state.favoMovies.isFetching);
     useEffect(() => {
         if (!user) {
             navigate("/login");
@@ -26,14 +27,12 @@ function FavoritiesMovie() {
             getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosJWT);
         }
     }, [user, dispatch]);
-    if (loading) {
-        return <LoadingComponent />
-    }
     return (
         <div>
             <div className='border border-light-1 text-light p-3 rounded-2'>
-                {
-                    <div className='row'>
+                {loadingFavoMovies ?
+                    (<LoadingComponent />) :
+                    (<div className='row'>
                         {favoMovies?.favoriteMovies?.map((movie) => (
                             <div className='col-6 col-md-3 col-sm-4 col-xl-2 mb-3'>
                                 <div className='card position-relative tooltip-wrapper border-0 w-100'>
@@ -44,7 +43,7 @@ function FavoritiesMovie() {
                                             className='hover-thumb-1 w-100 '
                                         // height={200}
                                         />
-                                        <div className="play-button1">
+                                        <div className="play-button1"> 
                                             <Link to={`/watch/${movie.slug}`}>
                                                 <FontAwesomeIcon icon={faPlayCircle} fontSize={60} color="white" />
                                             </Link>
@@ -59,10 +58,10 @@ function FavoritiesMovie() {
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </div>)
                 }
             </div>
-        </div>
+        </div >
     )
 }
 
