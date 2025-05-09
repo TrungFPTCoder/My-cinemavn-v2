@@ -48,10 +48,21 @@ export const logOut = async (dispatch, id, navigate, token, axiosJWT) => {
         dispatch(logoutFailure());
     }
 }
+// export const getAllFavoMovies = async (accessToken, dispatch, email, axiosJWT) => {
+//     dispatch(getFavoStart());
+//     try {
+//         const res = await axiosJWT.post(`https://backendv2jwt.vercel.app/v1/movie/getAllFavoMovies`, { email }, {
+//             headers: { token: `Bearer ${accessToken}`, }
+//         });
+//         dispatch(getFavoSuccess(res.data));
+//     } catch (err) {
+//         dispatch(getFavoFailure());
+//     }
+// }
 export const getAllFavoMovies = async (accessToken, dispatch, email, axiosJWT) => {
     dispatch(getFavoStart());
     try {
-        const res = await axiosJWT.post(`https://backendv2jwt.vercel.app/v1/movie/getAllFavoMovies`, { email }, {
+        const res = await axiosJWT.get(`https://backendv2jwt.vercel.app/v1/movie/getAllFavoMovies/${email}`, {
             headers: { token: `Bearer ${accessToken}`, }
         });
         dispatch(getFavoSuccess(res.data));
