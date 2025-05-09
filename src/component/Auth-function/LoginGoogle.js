@@ -75,9 +75,10 @@ function LoginGoogle() {
           title: "Đăng nhập thành công",
         });
       } else {
-        // Nếu tài khoản chưa tồn tại, tiến hành đăng ký
+        // Nếu tài khoản chưa tồn tại, tiến hành đăng ký và đăng nhập
         const registerResponse = await registerUser(registerNewUser, dispatch);
-        if (registerResponse) {
+        const response = await loginUser(newUser, dispatch, navigate);
+        if (response) {
           const Toast = Swal.mixin({
             toast: true,
             position: "top-end",
