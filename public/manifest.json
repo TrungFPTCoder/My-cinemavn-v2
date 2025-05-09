@@ -1,6 +1,7 @@
 {
   "short_name": "MycinemaVN",
   "name": "MycinemaVN-Xem Phim Online",
+  "description": "Xem Phim Online, Xem Phim HD, Xem Phim Hay, Xem Phim Mới Nhất",
   "icons": [
     {
       "src": "favicon.ico",
