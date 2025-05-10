@@ -5,15 +5,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 function PersonalPage() {
     const navigate = useNavigate();
     const user = useSelector(state => state.auth.login.currentUser);
+    const favoMovies = useSelector(state => state.favoMovies.favoMovies.allFavoMovies);
+
     if (!user || user.userImage === null) {
         navigate("/login");
     }
     return (
         <div className='bg-dark pb-5' style={{ paddingTop: '98px' }}>
+            <Helmet>
+                <title>Trang cá nhân</title>
+                <meta name="description" content="Trang cá nhân" />
+            </Helmet>
             <div className="container">
                 <div className='row'>
                     <div className="col-md-6 mb-3">
@@ -36,7 +43,7 @@ function PersonalPage() {
                             <hr />
                             <div className='card-body'>
                                 <div className='d-flex justify-content-center align-items-center'>
-                                    <p style={{fontSize:'4rem'}}>0</p>
+                                    <p style={{ fontSize: '4rem' }}>{favoMovies?.favoriteMovies?.length}</p>
                                     <FontAwesomeIcon icon={faFilm} size='3x' className='mx-4' />
                                 </div>
                             </div>

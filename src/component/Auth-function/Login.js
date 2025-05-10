@@ -19,8 +19,6 @@ function Login() {
 
   const isFetching = useSelector((state) => state.auth.login.isFetching);
   const isFetchingRegister = useSelector((state) => state.auth.register.isFetching);
-  console.log("login" + isFetching);
-  console.log("login reg" + isFetchingRegister);
   // 25/01/2025
   // useEffect(() => {
   //   const loadAccounts = async () => {
