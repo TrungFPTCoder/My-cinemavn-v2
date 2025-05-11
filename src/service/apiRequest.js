@@ -5,7 +5,9 @@ import { persistor } from "../component/MovieStore";
 export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginStart());
     try {
-        const res = await axios.post("https://backendv2jwt.vercel.app/v1/auth/login", user);
+        const res = await axios.post("https://backendv2jwt.vercel.app/v1/auth/login", user, {
+            withCredentials: true, // Bật gửi cookie
+        });
         dispatch(loginSuccess(res.data));
         navigate("/");
         return { status: res.status };

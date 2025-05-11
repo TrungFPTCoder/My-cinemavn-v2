@@ -9,7 +9,7 @@ import { assets } from '../assest/AI-assets/assets';
 import { useDispatch, useSelector } from 'react-redux';
 import { createAxios } from './createInstance';
 import { getAllFavoMovies, logOut } from '../service/apiRequest';
-import { logoutSuccess } from './Slice/AuthSlice';
+import { loginSuccess, logoutSuccess } from './Slice/AuthSlice';
 function NewHeader() {
     const [navbarBg, setNavbarBg] = useState('background-navbar pt-2 pb-2');//change new in 07/02/2025
     const [searchKeyword, setSearchKeyword] = useState('');
@@ -62,7 +62,7 @@ function NewHeader() {
     // logout
     const accessToken = user?.accessToken;
     const id = user?._id;
-    let axiosJWT = createAxios(user, dispatch, logoutSuccess);
+    let axiosJWT = createAxios(user, dispatch, loginSuccess);
     useEffect(() => {
         if (user) {
             getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosJWT);

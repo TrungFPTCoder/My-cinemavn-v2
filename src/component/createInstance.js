@@ -3,7 +3,7 @@ import {jwtDecode} from 'jwt-decode';
 
 const refreshToken = async () => { //khi đã login nhưng thời gian của accessToken đã hết thì sẽ gọi hàm này để lấy accessToken mới
     try {
-        const response = await axios.post("https://backendv2jwt.vercel.app/v1/auth/refreshToken", {
+        const response = await axios.post("https://backendv2jwt.vercel.app/v1/auth/refreshToken", {},{
             withCredentials: true,
         });
         return response.data;
