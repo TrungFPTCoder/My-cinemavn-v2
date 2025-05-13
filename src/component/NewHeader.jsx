@@ -62,14 +62,17 @@ function NewHeader() {
     // logout
     const accessToken = user?.accessToken;
     const id = user?._id;
-    let axiosJWT = createAxios(user, dispatch, loginSuccess);
+    
+    
     useEffect(() => {
         if (user) {
+            const axiosJWT = createAxios(user, dispatch, loginSuccess);
             getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosJWT);
         }
     }, [user, dispatch]); // Chỉ gọi khi `user`, `dispatch`, hoặc `axiosJWT` thay đổi
     const handleLogout = () => {
-        logOut(dispatch, id, navigate, accessToken, axiosJWT);
+        const axiosJWTLogout = createAxios(user, dispatch, logoutSuccess);
+        logOut(dispatch, id, navigate, accessToken, axiosJWTLogout);
     }
 
     // new in 07/02/2025

@@ -23,9 +23,9 @@ function FavoritiesMovie() {
         if (!user) {
             navigate("/login");
         }
-        if (user?.accessToken) {
-            getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosJWT);
-        }
+        // if (user?.accessToken) {
+        //     getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosJWT);
+        // }
     }, [user, dispatch]);
     return (
         <div>
