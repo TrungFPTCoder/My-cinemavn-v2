@@ -14,19 +14,37 @@ function FavoritiesMovie() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(state => state.auth.login.currentUser);
-    const axiosJWT = createAxios(user, dispatch, loginSuccess);
+    // const axiosJWT = createAxios(user, dispatch, loginSuccess);
     const favoMovies = useSelector(state => state.favoMovies.favoMovies.allFavoMovies);
     const loadingFavoMovies = useSelector(state => state.favoMovies.favoMovies.isFetching);
     // const favoMovies = useSelector(state => state.favoMovies.favoriteMovies);
     // const loading = useSelector(state => state.favoMovies.isFetching);
+    // useEffect(() => {
+    //     if (!user) {
+    //         navigate("/login");
+    //     }
+    //     if (user?.accessToken) {
+    //         getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosJWT);
+    //     }
+    // }, [user, dispatch]);
+
     useEffect(() => {
-        if (!user) {
-            navigate("/login");
-        }
-        if (user?.accessToken) {
-            getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosJWT);
-        }
-    }, [user, dispatch]);
+        const fetchFavoriteMovies = async () => {
+            if (!user) {
+                navigate("/login");
+                return;
+            }
+
+            if (user) {
+                // Tạo axios instance trước
+                const axiosInstance = createAxios(user, dispatch, loginSuccess);
+                // Sau khi axios instance được tạo, gọi hàm getAllFavoMovies
+                await getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosInstance);
+            }
+        };
+
+        fetchFavoriteMovies();
+    }, [user, dispatch, navigate]);
     return (
         <div>
             <div className='border border-light-1 text-light p-3 rounded-2'>

@@ -62,14 +62,26 @@ function NewHeader() {
     // logout
     const accessToken = user?.accessToken;
     const id = user?._id;
-    
-    
+
+    // useEffect(() => {
+    //     if (user) {
+    //         const axiosJWT = createAxios(user, dispatch, loginSuccess);
+    //         getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosJWT);
+    //     }
+    // }, [user, dispatch]);
     useEffect(() => {
-        if (user) {
-            const axiosJWT = createAxios(user, dispatch, loginSuccess);
-            getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosJWT);
-        }
-    }, [user, dispatch]); // Chỉ gọi khi `user`, `dispatch`, hoặc `axiosJWT` thay đổi
+        const fetchFavoriteMovies = async () => {
+            if (user) {
+                // Tạo axios instance trước
+                const axiosInstance = createAxios(user, dispatch, loginSuccess);
+                console.log(user.accessToken)
+                // Sau khi axios instance được tạo, gọi hàm getAllFavoMovies
+                await getAllFavoMovies(user.accessToken, dispatch, user.email, axiosInstance);
+            }
+        };
+        fetchFavoriteMovies();
+    }, [user, dispatch]);
+
     const handleLogout = () => {
         const axiosJWTLogout = createAxios(user, dispatch, logoutSuccess);
         logOut(dispatch, id, navigate, accessToken, axiosJWTLogout);
