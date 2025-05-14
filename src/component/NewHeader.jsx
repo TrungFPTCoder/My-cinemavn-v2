@@ -74,7 +74,6 @@ function NewHeader() {
             if (user) {
                 // Tạo axios instance trước
                 const axiosInstance = createAxios(user, dispatch, loginSuccess);
-                console.log(user.accessToken)
                 // Sau khi axios instance được tạo, gọi hàm getAllFavoMovies
                 await getAllFavoMovies(user.accessToken, dispatch, user.email, axiosInstance);
             }
