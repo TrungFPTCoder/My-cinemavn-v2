@@ -1,72 +1,94 @@
-# Getting Started with Create React App
+<div class="" style=""><div class="border border-border rounded-lg bg-background p-6 shadow-sm"><div class="prose prose-sm md:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-a:text-blue-600"><div id="top" class="">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center" class="text-center">
+<h1>MY-CINEMA-VN</h1>
+<p><em>Streamline Your Movie Experience, Anytime, Anywhere</em></p>
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-hellov2
+<img alt="last-commit" src="https://img.shields.io/github/last-commit/trungFPTCoder/My-cinema?style=flat&amp;logo=git&amp;logoColor=white&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="repo-top-language" src="https://img.shields.io/github/languages/top/trungFPTCoder/My-cinema?style=flat&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="repo-language-count" src="https://img.shields.io/github/languages/count/trungFPTCoder/My-cinema?style=flat&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+<p><em>Built with the tools and technologies:</em></p>
+<img alt="Express" src="https://img.shields.io/badge/Express-000000.svg?style=flat&amp;logo=Express&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="JSON" src="https://img.shields.io/badge/JSON-000000.svg?style=flat&amp;logo=JSON&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="npm" src="https://img.shields.io/badge/npm-CB3837.svg?style=flat&amp;logo=npm&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="Mongoose" src="https://img.shields.io/badge/Mongoose-F04D35.svg?style=flat&amp;logo=Mongoose&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt=".ENV" src="https://img.shields.io/badge/.ENV-ECD53F.svg?style=flat&amp;logo=dotenv&amp;logoColor=black" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat&amp;logo=JavaScript&amp;logoColor=black" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-47A248.svg?style=flat&amp;logo=MongoDB&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+<br>
+<img alt="React" src="https://img.shields.io/badge/React-61DAFB.svg?style=flat&amp;logo=React&amp;logoColor=black" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="Lodash" src="https://img.shields.io/badge/Lodash-3492FF.svg?style=flat&amp;logo=Lodash&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="Swiper" src="https://img.shields.io/badge/Swiper-6332F6.svg?style=flat&amp;logo=Swiper&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="Axios" src="https://img.shields.io/badge/Axios-5A29E4.svg?style=flat&amp;logo=Axios&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="Redux" src="https://img.shields.io/badge/Redux-764ABC.svg?style=flat&amp;logo=Redux&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="Bootstrap" src="https://img.shields.io/badge/Bootstrap-7952B3.svg?style=flat&amp;logo=Bootstrap&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="CSS" src="https://img.shields.io/badge/CSS-663399.svg?style=flat&amp;logo=CSS&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+</div>
+<br>
+<hr>
+<h2>Table of Contents</h2>
+<ul class="list-disc pl-4 my-0">
+<li class="my-0"><a href="#overview">Overview</a></li>
+<li class="my-0"><a href="#getting-started">Getting Started</a>
+<ul class="list-disc pl-4 my-0">
+<li class="my-0"><a href="#prerequisites">Prerequisites</a></li>
+<li class="my-0"><a href="#installation">Installation</a></li>
+<li class="my-0"><a href="#usage">Usage</a></li>
+<li class="my-0"><a href="#testing">Testing</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>Overview</h2>
+<p>My Cinema is a powerful React-based web platform designed to streamline the management of cinema-related functionalities. Transform your movie streaming experience with My Cinema, a robust tool that combines seamless user interaction with efficient state management.</p>
+<p><strong>Why My Cinema?</strong></p>
+<p>This project aims to provide a comprehensive solution for cinema management, enhancing both developer and user experiences. The core features include:</p>
+<ul class="list-disc pl-4 my-0">
+<li class="my-0">🎨 <strong>Comprehensive Dependency Management:</strong> Ensures consistent installations across environments, preventing "it works on my machine" issues.</li>
+<li class="my-0">🚀 <strong>Dynamic User Interface:</strong> Built with React and Redux, providing a responsive and interactive experience for users.</li>
+<li class="my-0">📊 <strong>Robust State Management:</strong> Utilizes Redux for efficient state handling, enhancing performance and scalability.</li>
+<li class="my-0">🔍 <strong>SEO Optimization:</strong> Incorporates metadata for better search engine visibility, improving discoverability.</li>
+<li class="my-0">⚠️ <strong>Error Handling:</strong> Features like ErrorBoundary enhance user experience by gracefully managing application errors.</li>
+<li class="my-0">🔐 <strong>User Authentication:</strong> Supports Google OAuth for seamless user login and registration.</li>
+</ul>
+<hr>
+<h2>Getting Started</h2>
+<h3>Prerequisites</h3>
+<p>This project requires the following dependencies:</p>
+<ul class="list-disc pl-4 my-0">
+<li class="my-0"><strong>Programming Language:</strong> JavaScript</li>
+<li class="my-0"><strong>Package Manager:</strong> Npm</li>
+</ul>
+<h3>Installation</h3>
+<p>Build My-cinema from the source and intsall dependencies:</p>
+<ol>
+<li class="my-0">
+<p><strong>Clone the repository:</strong></p>
+<pre><code class="language-sh">❯ git clone https://github.com/trungFPTCoder/My-cinema
+</code></pre>
+</li>
+<li class="my-0">
+<p><strong>Navigate to the project directory:</strong></p>
+<pre><code class="language-sh">❯ cd My-cinema
+</code></pre>
+</li>
+<li class="my-0">
+<p><strong>Install the dependencies:</strong></p>
+</li>
+</ol>
+<p><strong>Using <a href="https://www.npmjs.com/">npm</a>:</strong></p>
+<pre><code class="language-sh">❯ npm install
+</code></pre>
+<h3>Usage</h3>
+<p>Run the project with:</p>
+<p><strong>Using <a href="https://www.npmjs.com/">npm</a>:</strong></p>
+<pre><code class="language-sh">npm start
+</code></pre>
+<h3>Testing</h3>
+<p>My-cinema uses the {<strong>test_framework</strong>} test framework. Run the test suite with:</p>
+<p><strong>Using <a href="https://www.npmjs.com/">npm</a>:</strong></p>
+<pre><code class="language-sh">npm test
+</code></pre>
+<hr>
+<div align="left" class=""><a href="#top">⬆ Return</a></div>
+<hr></div></div></div></div>
