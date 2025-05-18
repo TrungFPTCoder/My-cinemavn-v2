@@ -81,14 +81,14 @@ function WatchMovie() {
                     thumb_url: movieDetails.thumb_url,
                     poster_url: movieDetails.poster_url,
                 }
-                addFavoMovie(user.accessToken, dispatch, user.email, infoMovie, axiosJWT);
+                addFavoMovie(user.accessToken, dispatch, user._id, infoMovie, axiosJWT);
                 setFollow(true);
             }
         }
     };
     // console.log(follow);
     const confirmUnfollow = () => {//tạm thời (bỏ phương thức delete vào đây)
-        deleteFavoMovie(user.accessToken, dispatch, slug, user.email, axiosJWT);
+        deleteFavoMovie(user.accessToken, dispatch, slug, user._id, axiosJWT);
         setFollow(false);
     };
     return (

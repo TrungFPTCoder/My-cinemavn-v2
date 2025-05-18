@@ -63,10 +63,10 @@ export const logOut = async (dispatch, id, navigate, token, axiosJWT) => {
 //         dispatch(getFavoFailure());
 //     }
 // }
-export const getAllFavoMovies = async (accessToken, dispatch, email, axiosJWT) => {
+export const getAllFavoMovies = async (accessToken, dispatch, userId, axiosJWT) => {
     dispatch(getFavoStart());
     try {
-        const res = await axiosJWT.get(`${baseURL}/v1/movie/getAllFavoMovies/${email}`, {
+        const res = await axiosJWT.get(`${baseURL}/v1/movie/getAllFavoMovies/${userId}`, {
             headers: { token: `Bearer ${accessToken}`, }
         });
         dispatch(getFavoSuccess(res.data));
@@ -75,11 +75,11 @@ export const getAllFavoMovies = async (accessToken, dispatch, email, axiosJWT) =
     }
 }
 
-export const addFavoMovie = async (accessToken, dispatch, email, movieInfo, axiosJWT) => {
+export const addFavoMovie = async (accessToken, dispatch, userId, movieInfo, axiosJWT) => {
     dispatch(addFavoStart());
     try {
         const res = await axiosJWT.post(`${baseURL}/v1/movie/addMovie`,
-            { email, movieInfo },
+            { userId, movieInfo },
             {
                 headers: { token: `Bearer ${accessToken}`, }
             });
@@ -95,10 +95,10 @@ export const addFavoMovie = async (accessToken, dispatch, email, movieInfo, axio
     }
 }
 
-export const deleteFavoMovie = async (accessToken, dispatch, slug, email, axiosJWT) => {
+export const deleteFavoMovie = async (accessToken, dispatch, slug, userId, axiosJWT) => {
     dispatch(deleteFavoStart());
     try {
-        const res = await axiosJWT.delete(`${baseURL}/v1/movie/deleteMovie/${slug}?email=${email}`, {
+        const res = await axiosJWT.delete(`${baseURL}/v1/movie/deleteMovie/${slug}?userId=${userId}`, {
             headers: { token: `Bearer ${accessToken}`, }
         });
         dispatch(deleteFavoSuccess());

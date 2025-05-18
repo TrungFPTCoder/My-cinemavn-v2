@@ -39,10 +39,9 @@ function FavoritiesMovie() {
                 // Tạo axios instance trước
                 const axiosInstance = createAxios(user, dispatch, loginSuccess);
                 // Sau khi axios instance được tạo, gọi hàm getAllFavoMovies
-                await getAllFavoMovies(user?.accessToken, dispatch, user?.email, axiosInstance);
+                await getAllFavoMovies(user?.accessToken, dispatch, user?._id, axiosInstance);
             }
         };
-
         fetchFavoriteMovies();
     }, [user, dispatch, navigate]);
     return (
