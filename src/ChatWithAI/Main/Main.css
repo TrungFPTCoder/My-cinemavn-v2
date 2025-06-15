@@ -160,8 +160,9 @@
 
 .result {
     padding: 0 max(5%, 1rem);
-    max-height: 70vh;
+    max-height: 100vh;
     overflow-y: scroll;
+    height: 90vh;
 }
 
 .result::-webkit-scrollbar {
@@ -299,4 +300,12 @@
 }
 .asking-btn:disabled{
     background-color: #ddd;
+}
+.stop-btn {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border: none;
+    box-shadow: none;
 }

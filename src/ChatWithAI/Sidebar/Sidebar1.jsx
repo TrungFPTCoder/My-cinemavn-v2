@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import './Sidebar.css';
-import { assets } from '../../assets/assets';
-import { Context } from '../../context/Context';
+import { assets } from '../../assest/AI-assets/assets';
+import { Context } from '../context/Context';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Sidebar1 = () => {
