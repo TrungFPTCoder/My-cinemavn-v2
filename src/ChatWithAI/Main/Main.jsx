@@ -90,7 +90,7 @@ const Main = () => {
                         </div>
                     </div>
                 }
-                <div className="main-bottom rounded-top-4">
+                <div className="main-bottom rounded-top-4 w-100">
                     <div className="search-box p-2">
                         <textarea rows={rows} onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => {
