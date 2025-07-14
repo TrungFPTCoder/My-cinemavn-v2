@@ -10,7 +10,7 @@ export default function ScrollToTop() {
       top: 0,
       behavior: "smooth",
     });
-    console.log("Scroll to top on path change:", pathname);
+    // console.log("Scroll to top on path change:", pathname);
   }, [pathname]);
 
   return null;
