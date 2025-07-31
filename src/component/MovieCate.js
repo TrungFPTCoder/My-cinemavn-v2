@@ -23,7 +23,7 @@ function MovieCate() {
         const page = query.get('page') || 1;
         setCurrentPage(Number(page));
     }, [location.search]);
-
+    const categoryMovies = useSelector((state) => state.categoryMovies);
     useEffect(() => {
         const loadMovieCate = async () => {
             setLoading(true);
@@ -34,7 +34,7 @@ function MovieCate() {
         loadMovieCate();
     }, [dispatch, cate, currentPage]);
 
-    const categoryMovies = useSelector((state) => state.categoryMovies);
+    //const categoryMovies = useSelector((state) => state.categoryMovies);
     if (loading) {
         return <LoadingComponent />; // Render LoadingComponent when loading
     }
