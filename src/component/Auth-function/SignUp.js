@@ -167,7 +167,7 @@ function SignUp() {
                             <div className="forget mb-4">
                                 <label className="d-flex justify-content-center h6"><input type="checkbox" />Đồng ý với chính sách của chúng tôi</label>
                             </div>
-                            <button className='glow-on-hover position-relative'>
+                            <button className='glow-on-hover text-black position-relative'>
                                 Đăng ký
                             </button>
                             <div className="register login-now position-relative">
