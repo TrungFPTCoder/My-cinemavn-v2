@@ -10,7 +10,7 @@ export const loginUser = async (user, dispatch, navigate) => {
             withCredentials: true, // Bật gửi cookie
         });
         dispatch(loginSuccess(res.data));
-        navigate("/");
+        navigate("/", { replace: true });
         return { status: res.status };
     } catch (err) {
         dispatch(loginFailure());
