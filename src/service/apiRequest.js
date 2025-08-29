@@ -47,7 +47,7 @@ export const logOut = async (dispatch, id, navigate, token, axiosJWT) => {
         dispatch(logoutSuccess());
         dispatch(resetFavoMovies());
         //xóa cookie
-        navigate("/");
+        navigate("/", { replace: true });
     } catch (err) {
         dispatch(logoutFailure());
     }
