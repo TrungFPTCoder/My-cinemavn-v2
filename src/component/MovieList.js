@@ -148,13 +148,13 @@ function MovieList() {
                   </div>
                   <div className='d-flex mt-3'>
                     <div className='border border-light border-1 mx-1 p-1 px-2 rounded intro-container'>
-                      {movieDetails.category?.[3].list[0].name}
+                      {movieDetails.category?.[3].list[0].name? movieDetails.category?.[3].list[0].name : 'Đang cập nhật'}
                     </div>
                     <div className='border border-light border-1 mx-1 p-1 px-2 rounded intro-container'>
-                      {movieDetails.category?.[1].list[0].name}
+                      {movieDetails.category?.[1].list[0].name? movieDetails.category?.[1].list[0].name : 'Đang cập nhật'}
                     </div>
                     <div className='border border-light border-1 mx-1 p-1 px-2 rounded intro-container'>
-                      {movieDetails.current_episode}
+                      {movieDetails.current_episode? movieDetails.current_episode : 'Đang cập nhật'}
                     </div>
                     <div className='border border-light border-1 mx-1 p-1 px-2 rounded intro-container'>
                       {convertTime(movieDetails.time) === '' ? convertTime(movieDetails.time) : 'Đang cập nhật'}
