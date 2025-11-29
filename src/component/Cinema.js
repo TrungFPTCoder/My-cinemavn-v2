@@ -297,7 +297,7 @@ function Cinema() {
                       <button
                         className='btn'
                         onClick={() => {
-                          const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=http://localhost:3000/watch/${slug}`;
+                          const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=https://mycinemavn.vercel.app/watch/${slug}`;
                           const popupWidth = 600;
                           const popupHeight = 400;
 
