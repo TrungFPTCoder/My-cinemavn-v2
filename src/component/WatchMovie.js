@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from '../service/MovieService';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,11 +53,11 @@ function WatchMovie() {
     if (loading || loadingFavoMovies) {//cả 2 đều true thì hiện loading đến khi false
         return <div><LoadingComponent></LoadingComponent></div>
     }
-    const formattedDate = new Date(movieDetails.created).toLocaleDateString('vi-VN', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-    });
+    // const formattedDate = new Date(movieDetails.created).toLocaleDateString('vi-VN', {
+    //     day: '2-digit',
+    //     month: '2-digit',
+    //     year: 'numeric'
+    // });
     const convertTime = (time) => {
         const minutes = parseInt(time);
         const hours = Math.floor(minutes / 60);
@@ -272,7 +272,7 @@ function WatchMovie() {
                                                     );
                                                 }}
                                             >
-                                                <img src='/images/twitter.png' width={30} />
+                                                <img src='/images/twitter.png' width={30} alt='twitter' />
                                             </button>
                                         </div>
                                     </div>
@@ -315,7 +315,7 @@ function WatchMovie() {
                                                                         </Link>
                                                                     </div>
                                                                     <div className='col-4'>
-                                                                        <img src={movieDetails.thumb_url} className='w-100 rounded-end language-img'></img>
+                                                                        <img src={movieDetails.thumb_url} alt='thumb_image' className='w-100 rounded-end language-img'/>
                                                                     </div>
                                                                 </div>
                                                             </div>

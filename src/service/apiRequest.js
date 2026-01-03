@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { loginFailure, loginStart, loginSuccess, logoutFailure, logoutStart, logoutSuccess, registerFailure, registerStart, registerSuccess } from '../component/Slice/AuthSlice';
 import { addFavoFailure, addFavoStart, addFavoSuccess, deleteFavoFailure, deleteFavoStart, deleteFavoSuccess, getFavoFailure, getFavoStart, getFavoSuccess, resetFavoMovies } from '../component/Slice/FavoriteMoviesSlice';
-import { persistor } from "../component/MovieStore";
 const baseURL = "https://backendv2jwt.vercel.app";
 export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginStart());

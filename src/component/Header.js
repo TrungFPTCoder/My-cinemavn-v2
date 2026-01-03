@@ -3,14 +3,12 @@ import '../assest/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 
 function Header() {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [navbarBg, setNavbarBg] = useState('bg-dark opacity-75');
   const navigate = useNavigate();
-  const categoryMovies = useSelector((state) => state.categoryMovies);
   
   const handleSearchChange = (e) => {
     setSearchKeyword(e.target.value);

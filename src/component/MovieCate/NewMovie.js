@@ -1,9 +1,9 @@
 //done
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useParams } from 'react-router-dom';
-import { fetchMovieCate, fetchNewMovies } from '../../service/MovieService';
-import { setCategoryMovies, setNewMovies } from '../Slice/NewMovieSlice';
+import { Link, useLocation } from 'react-router-dom';
+import { fetchNewMovies } from '../../service/MovieService';
+import { setNewMovies } from '../Slice/NewMovieSlice';
 import '../../assest/MovieCate.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
@@ -12,8 +12,6 @@ import Pagination from '../Pagination'; // Import the Pagination component
 import { Helmet } from 'react-helmet';
 
 function NewMovie() {
-
-    // const { cate } = useParams();
     const location = useLocation();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);

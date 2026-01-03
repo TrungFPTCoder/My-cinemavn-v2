@@ -1,7 +1,7 @@
 import { faBars, faSearch, faUser, faTimes, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useRef, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SearchSuggest from './SearchSuggest';//add new in 07/02/2025
 // thử nghiệm gợi ý search
 import '../assest/NewNavbar.css'
@@ -302,7 +302,7 @@ function NewHeader() {
                                         <div className="dropdown">
                                             <img src={user.userImage}
                                                 className="dropdown-toggle border border-light p-1 rounded-circle" data-bs-toggle="dropdown"
-                                                style={{ height: '45px', cursor: 'pointer' }} alt="" />
+                                                style={{ height: '45px', cursor: 'pointer' }} alt="user_image" />
                                             <ul className="dropdown-menu" style={{ transition: '0.5s ease', width: '350px' }}>
                                                 <li>
                                                     <Link to={'personal'} className="text-decoration-none">
@@ -319,7 +319,7 @@ function NewHeader() {
                                                     <Link to={'/askMyAI'} className="text-decoration-none text-black w-100 mx-2">
                                                         <div className='dropdown-item rounded-1 setting nav-hover colorful-button'>
                                                             <div className='d-flex align-items-center'>
-                                                                <img src={assets.gemini_icon} style={{ height: '40px' }}></img>
+                                                                <img src={assets.gemini_icon} style={{ height: '40px' }} alt='gemini_icon'/>
                                                                 <span className='mx-3'>Trải nghiệm AI</span>
                                                             </div>
 

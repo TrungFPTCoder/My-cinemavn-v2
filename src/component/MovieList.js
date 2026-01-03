@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNewMovies } from "../service/MovieService";
 import { Link } from "react-router-dom";
@@ -31,10 +31,7 @@ import VietNamMovie from "./MovieCountry/VietNamMovie";
 
 function MovieList() {
   const newMovies = useSelector((state) => state.newMovies);
-  // console.log(newMovies);
   const dispatch = useDispatch();
-  const carouselRef = useRef(null);
-  const [scrollDistance, setScrollDistance] = useState(0);
   const [loading, setLoading] = useState(true);
   const movieDetails = useSelector((state) => state.movieDetails);
   const [slug, setSlug] = useState(null);

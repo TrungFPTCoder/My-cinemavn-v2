@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAccount, fetchFavoMovie } from '../../service/MovieService';
-import { setAccount, setFavoMovie } from '../MovieStore';
 import LoadingComponent from '../LoadingComponent';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

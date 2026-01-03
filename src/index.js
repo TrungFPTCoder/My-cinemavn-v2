@@ -8,10 +8,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const googleClientId = import.meta.env.REACT_APP_CLIENT_ID;
 root.render(
   <React.StrictMode>
     <ContextProvider>
-      <GoogleOAuthProvider clientId="119806128486-3lfec60l96p63ac557mfasmqlrp5323q.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId={googleClientId}>
         <App />
       </GoogleOAuthProvider>
     </ContextProvider>
