@@ -37,7 +37,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "sweetalert2": "^11.15.10",
-    "swiper": "^11.1.15",
+    "swiper": "^12.1.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
