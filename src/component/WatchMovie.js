@@ -59,7 +59,9 @@ function WatchMovie() {
     //     year: 'numeric'
     // });
     const convertTime = (time) => {
+        if (!time) return '';
         const minutes = parseInt(time);
+        if (isNaN(minutes)) return '';
         const hours = Math.floor(minutes / 60);
         const remainingMinutes = minutes % 60;
         return `${hours}h ${remainingMinutes}m`;
@@ -114,7 +116,7 @@ function WatchMovie() {
                     <div className='row g-2'>
                         <div className='col-md-4'>
                             <div className='card p-4 bg-dark text-light'>
-                                <img src={movieDetails.thumb_url} className='w-50 card-img mx-auto' alt='Movie Thumbnail' />
+                                <img src={movieDetails.thumb_url || '/images/updating_image.png'} className='w-50 card-img mx-auto' alt='Movie Thumbnail' />
                                 <h5 className='mt-3'>{movieDetails.name}</h5>
                                 <small className='text-warning'>{movieDetails.original_name}</small>
                                 <div className='d-flex flex-wrap mt-3'>
@@ -136,11 +138,11 @@ function WatchMovie() {
                                         {movieDetails.current_episode ? movieDetails.current_episode : 'Đang cập nhật'}
                                     </div>
                                     <div className='border border-light border-1 mx-1 p-1 px-2 mb-2 rounded'>
-                                        {convertTime(movieDetails.time) === '' ? convertTime(movieDetails.time) : 'Đang cập nhật'}
+                                        {convertTime(movieDetails.time) || 'Đang cập nhật'}
                                     </div>
                                 </div>
                                 <div className='d-flex flex-wrap mt-2'>
-                                    {movieDetails.category?.[2]?.list.map((item) => (
+                                    {movieDetails.category?.[2]?.list?.map((item) => (
                                         <div className='category--movie mx-1 mb-2 p-1 px-2 rounded' key={item.id}>
                                             {item.name}
                                         </div>
@@ -149,10 +151,10 @@ function WatchMovie() {
                                 <div className='mt-3'>
                                     <strong>Giới thiệu: </strong> <br />
                                     <small style={{ color: '#ddd' }}>{movieDetails.description}</small> <br />
-                                    <p className='mt-3' style={{ color: '#ddd' }}><strong className='text-light'>Quốc gia: </strong>{movieDetails.category?.[4]?.list[0].name}</p>
+                                    <p className='mt-3' style={{ color: '#ddd' }}><strong className='text-light'>Quốc gia: </strong>{movieDetails.category?.[4]?.list?.[0]?.name || 'Đang cập nhật'}</p>
                                     <p className='mt-3' style={{ color: '#ddd' }}><strong className='text-light'>Đạo diễn: </strong>{movieDetails.director ? movieDetails.director : 'Đang cập nhật'}</p>
                                     <p className='mt-3' style={{ color: '#ddd' }}><strong className='text-light'>Diễn viên: </strong>{movieDetails.casts ? movieDetails.casts : 'Đang cập nhật'}</p>
-                                    <p className='mt-3' style={{ color: '#ddd' }}><strong className='text-light'>Thời lượng: </strong>{convertTime(movieDetails.time) === '' ? convertTime(movieDetails.time) : 'Đang cập nhật'}</p>
+                                    <p className='mt-3' style={{ color: '#ddd' }}><strong className='text-light'>Thời lượng: </strong>{convertTime(movieDetails.time) || 'Đang cập nhật'}</p>
                                 </div>
                             </div>
                         </div>
@@ -332,7 +334,7 @@ function WatchMovie() {
                                                             {index > 0 && <hr />} {/* Add <hr> before each episode group starting from the second one */}
                                                             <h6>{episode.server_name}</h6>
                                                             <div className='row g-2 mt-2 mb-2'>
-                                                                {episode.items.map((item) => (
+                                                                {episode.items?.map((item) => (
                                                                     <div key={item.id} className='col-4 col-md-2 mb-1'>
                                                                         <Link to={`/watch/cinema/${slug}?tap=${item.name}&type=${episode.server_name}`} className='text-decoration-none text-light'>
                                                                             <div className='category--movie p-2 px-2 rounded text-center'>

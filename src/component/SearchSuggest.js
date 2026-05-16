@@ -71,17 +71,17 @@ function SearchSuggest({ keywordFromURL }) {
                             <div>
                                 <p>Danh sách phim</p>
                                 <hr />
-                                {searchMovies.items.map((item, index) => (
+                                {searchMovies.items?.map((item, index) => (
                                     <Link to={`/watch/${item.slug}`} className='text-decoration-none text-light'>
                                         <div key={index} className='p-3 movie-item'>
                                             <div className="row">
                                                 <div className="col-3 d-flex justify-content-center align-items-center">
-                                                    <img src={item.thumb_url} className='rounded ' width={65} alt="" />
+                                                    <img src={item.thumb_url || '/images/updating_image.png'} className='rounded ' width={65} alt="" />
                                                 </div>
                                                 <div className="col-9">
                                                     <p className='movie---name mb-2'>{item.name}</p>
                                                     <p className='movie---name original--name'>{item.original_name}</p>
-                                                    <p className='movie--detail mb-1'>{convertTime(item.time)} &#x2022; {item.current_episode} </p>
+                                                    <p className='movie--detail mb-1'>{convertTime(item.time)} &#x2022; {item.current_episode || 'Đang cập nhật'} </p>
                                                 </div>
                                             </div>
                                         </div>

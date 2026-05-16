@@ -33,8 +33,8 @@ function SearchMovie() {
 
             // Validate keyword for special characters
             const specialCharPattern = /[!@#$%^&*(),.?":{}|<>]|--|__|\+\+|==/g;
-            const containsSensitiveWord = sensitiveWords.some(word => keywordFromURL.toLowerCase().includes(word));
-            if (specialCharPattern.test(keywordFromURL) || containsSensitiveWord) {
+            const containsSensitiveWord = keywordFromURL ? sensitiveWords.some(word => keywordFromURL.toLowerCase().includes(word)) : false;
+            if (keywordFromURL && (specialCharPattern.test(keywordFromURL) || containsSensitiveWord)) {
                 dispatch(setSearchMovies({ items: [], paginate: { total_page: 1 } }));
                 setLoading(false);
                 return;
@@ -76,12 +76,12 @@ function SearchMovie() {
                 ) : (
                     <div>
                         <div className='row'>
-                            {searchMovies.items.map((movie) => (
+                            {searchMovies.items?.map((movie) => (
                                 <div className='col-6 col-md-2 col-sm-4 mb-3'>
                                     <div className='card position-relative tooltip-wrapper border-0 w-100 movie--width1'>
                                         <div className='img-container-cate position-relative overflow-hidden'>
                                             <img
-                                                src={movie.thumb_url}
+                                                src={movie.thumb_url || '/images/updating_image.png'}
                                                 alt={movie.name}
                                                 className='hover-thumb w-100'
                                                 // height={350}
@@ -103,7 +103,7 @@ function SearchMovie() {
                             ))}
                         </div>
                         <PaginationSearch
-                            totalPages={searchMovies.paginate.total_page}
+                            totalPages={searchMovies.paginate?.total_page || 1}
                             currentPage={currentPage}
                             baseUrl={`/tim-kiem?keyword=${keywordFromURL}`}
                         />

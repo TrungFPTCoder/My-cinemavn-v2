@@ -28,6 +28,7 @@ import ActionMovie from "./MovieCategory/ActionMovie";
 import ComedyMovie from "./MovieCategory/ComedyMovie";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import VietNamMovie from "./MovieCountry/VietNamMovie";
+import NewMovieSlide from "./NewMovieSlide";
 
 function MovieList() {
   const newMovies = useSelector((state) => state.newMovies);
@@ -97,14 +98,16 @@ function MovieList() {
   /////////////////////////////////////////////////////////////////////////////  
   const handleSlideChange = (swiper) => {
     const currentSlideIndex = swiper.activeIndex;
-    const currentMovie = newMovies.items[currentSlideIndex];
+    const currentMovie = newMovies.items?.[currentSlideIndex];
     if (currentMovie) {
       setSlug(currentMovie.slug);
     }
   };
 
   const convertTime = (time) => {
+    if (!time) return '';
     const minutes = parseInt(time);
+    if (isNaN(minutes)) return '';
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
     return `${hours}h ${remainingMinutes}m`;
@@ -135,30 +138,30 @@ function MovieList() {
         onSlideChange={handleSlideChange}
         grabCursor={true}
       >
-        {newMovies.items.map((newMovie) => (
+        {newMovies.items?.map((newMovie) => (
           <SwiperSlide key={newMovie.slug}>
             <div className='img-container position-relative swiper--img mobile--header'>
-                <img src={newMovie.poster_url} className="w-100 object-fit-cover " alt={newMovie.name} />
+                <img src={newMovie.poster_url ? newMovie.poster_url : '/images/updating_image.png'} className="w-100 object-fit-cover " alt={newMovie.name} />
                 <div className="position-absolute mobile--view " style={{ top: '40%', left: '20px' }}>
                   <div className="text-warp">
-                    <p className="text-primary intro-container h1 rounded p-2" style={{ width: 'fit-content' }}>{movieDetails.name}</p>
+                    <p className="text-primary intro-container h1 rounded p-2" style={{ width: 'fit-content' }}>{movieDetails?.name}</p>
                   </div>
                   <div className='d-flex mt-3'>
                     <div className='border border-light border-1 mx-1 p-1 px-2 rounded intro-container'>
-                      {movieDetails.category?.[3].list[0].name? movieDetails.category?.[3].list[0].name : 'Đang cập nhật'}
+                      {movieDetails.category?.[3]?.list?.[0]?.name || 'Đang cập nhật'}
                     </div>
                     <div className='border border-light border-1 mx-1 p-1 px-2 rounded intro-container'>
-                      {movieDetails.category?.[1].list[0].name? movieDetails.category?.[1].list[0].name : 'Đang cập nhật'}
+                      {movieDetails.category?.[1]?.list?.[0]?.name || 'Đang cập nhật'}
                     </div>
                     <div className='border border-light border-1 mx-1 p-1 px-2 rounded intro-container'>
-                      {movieDetails.current_episode? movieDetails.current_episode : 'Đang cập nhật'}
+                      {movieDetails?.current_episode || 'Đang cập nhật'}
                     </div>
                     <div className='border border-light border-1 mx-1 p-1 px-2 rounded intro-container'>
-                      {convertTime(movieDetails.time) === '' ? convertTime(movieDetails.time) : 'Đang cập nhật'}
+                      {convertTime(movieDetails?.time) || 'Đang cập nhật'}
                     </div>
                   </div>
                   <div className='d-flex mt-2'>
-                    {movieDetails.category?.[2].list.map((item) => (
+                    {movieDetails.category?.[2]?.list?.map((item) => (
                       <div className='category--movie mx-1 p-1 px-2 rounded' key={item.id}>
                         {item.name}
                       </div>
@@ -166,7 +169,7 @@ function MovieList() {
                   </div>
                   <div className={isTablet ? "d-none" : "d-block"}>
                     <div className="mt-2 des-movie">
-                      <p className='text-light intro-container rounded p-1'>{movieDetails.description}</p>
+                      <p className='text-light intro-container rounded p-1'>{movieDetails?.description}</p>
                     </div>
                   </div>
                 </div>
@@ -180,69 +183,7 @@ function MovieList() {
 
       <div className="card p-3 list--movie mt-3">
         {/* done */}
-        <div className="d-flex align-items-center mb-3">
-          <h4 className="cate--movie--text">Phim mới cập nhật:</h4>
-          <Link to="/danh-sach/phim-moi-cap-nhat" className="text-decoration-none">
-            <div className="icon-container mx-2">
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                fontSize={20}
-                color="white"
-                className="icon"
-              />
-              <span className="tooltip-text">Xem thêm</span>
-            </div>
-          </Link>
-        </div>
-
-        <div>
-          <Swiper
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
-            spaceBetween={10}
-            slidesPerView={6}
-            navigation
-            grabCursor={true}
-            autoplay={{ delay: 4000 }}
-            breakpoints={{
-              320: {
-                slidesPerView: 3,
-                spaceBetween: 5,
-                slidesPerGroup: 1
-              },
-              1024: {
-                slidesPerView: 6,
-                spaceBetween: 10,
-                slidesPerGroup: 3
-              },
-              768: {
-                slidesPerView: 4,
-                spaceBetween: 10,
-                slidesPerGroup: 2
-              },
-              2560: {
-                slidesPerView: 8,
-                spaceBetween: 10,
-                slidesPerGroup: 3
-              }
-            }}
-          >
-            {newMovies.items.map((newMovie) => (
-              <SwiperSlide key={newMovie.id}>
-                <div className="card border-0 movie--width">
-                  <div className='img-container overflow-hidden position-relative w-100'>
-                    <img src={newMovie.thumb_url} className="card-img w-100 hover-thumb" alt={newMovie.name} />
-                    <div className="play-button">
-                      <Link to={`/watch/${newMovie.slug}`}><FontAwesomeIcon icon={faPlayCircle} fontSize={60} color="white" /></Link>
-                    </div>
-                  </div>
-                  <div className='movie--name position-absolute'>
-                    <h6 className='text-center text-light'>{newMovie.name}</h6>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+        <NewMovieSlide />
 
         {/* phim trung quốc */}
         {/* done */}

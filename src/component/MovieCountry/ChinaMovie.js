@@ -12,7 +12,9 @@ import 'swiper/css/scrollbar';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import '../../assest/MovieList.css';
+import { SWIPER_BREAKPOINTS } from '../SwiperConfig';
 function ChinaMovie({ country }) {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
@@ -36,59 +38,53 @@ function ChinaMovie({ country }) {
         return <LoadingComponent />
     }
     return (
-        <div>
-            <Swiper
-                // install Swiper modules
-                modules={[Navigation, Pagination, Scrollbar, A11y]}
-                spaceBetween={10}
-                slidesPerView={6}
-                navigation
-                grabCursor={true}
-                autoplay={{ delay: 4000 }}
-                // onSwiper={(swiper) => console.log(swiper)}
-                // onSlideChange={() => console.log('slide change')}
-                breakpoints={{
-                    // when window width is >= 320px
-                    320: {
-                        slidesPerView: 3,
-                        spaceBetween: 5,
-                        slidesPerGroup: 1
-                    },
-                    // when window width is >= 640px
-                    1024: {
-                        slidesPerView: 6,
-                        spaceBetween: 10,
-                        slidesPerGroup: 3
-                    },
-                    // when window width is >= 540px
-                    768: {
-                        slidesPerView: 4,
-                        spaceBetween: 10,
-                        slidesPerGroup: 2
-                    },
-                    2560:{
-                      slidesPerView: 8,
-                      spaceBetween: 10,
-                      slidesPerGroup: 3
-                    }
-                }}
-            >
-                {chinaMovies.items.map((chinaMovie) => (
-                    <SwiperSlide>
-                        <div className="card border-0 movie--width">
-                            <div className='img-container overflow-hidden position-relative'>
-                                <img src={chinaMovie.thumb_url} className="card-img hover-thumb" alt={chinaMovie.name} />
-                                <div className="play-button">
-                                    <Link to={`/watch/${chinaMovie.slug}`}><FontAwesomeIcon icon={faPlayCircle} fontSize={60} color="white" /></Link>
+        <div className="position-relative"> {/* Thêm position-relative để định vị nút */}
+            {chinaMovies.items?.length > 0 ? (
+                <>
+                    <Swiper
+                        // install Swiper modules
+                        modules={[Navigation, Pagination, Scrollbar, A11y]}
+                        spaceBetween={10}
+                        slidesPerView={6}
+                        navigation={{
+                            prevEl: '.china-movie-prev',
+                            nextEl: '.china-movie-next',
+                        }}
+                        grabCursor={true}
+                        autoplay={{ delay: 4000 }}
+                        // onSwiper={(swiper) => console.log(swiper)}
+                        // onSlideChange={() => console.log('slide change')}
+                        breakpoints={SWIPER_BREAKPOINTS}
+                    >
+                        {chinaMovies.items?.map((chinaMovie) => (
+                            <SwiperSlide key={chinaMovie.id}>
+                                <div className="card border-0 movie--width">
+                                    <div className='img-container overflow-hidden position-relative'>
+                                        <img src={chinaMovie.thumb_url || '/images/updating_image.png'} className="card-img hover-thumb" alt={chinaMovie.name} />
+                                        <div className="play-button">
+                                            <Link to={`/watch/${chinaMovie.slug}`}><FontAwesomeIcon icon={faPlayCircle} fontSize={60} color="white" /></Link>
+                                        </div>
+                                    </div>
+                                    <div className='movie--name position-absolute'>
+                                        <h6 className='text-center text-light'>{chinaMovie.name}</h6>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='movie--name position-absolute'>
-                                <h6 className='text-center text-light'>{chinaMovie.name}</h6>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                    {/* Nút custom */}
+                    <div className="china-movie-prev position-absolute top-50 translate-middle-y" style={{ zIndex: 10, cursor: 'pointer', left: '10px', backgroundColor: 'rgba(0, 0, 0, 0.6)', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <FontAwesomeIcon icon={faChevronLeft} size="lg" color="white" />
+                    </div>
+                    <div className="china-movie-next position-absolute top-50 translate-middle-y" style={{ zIndex: 10, cursor: 'pointer', right: '10px', backgroundColor: 'rgba(0, 0, 0, 0.6)', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <FontAwesomeIcon icon={faChevronRight} size="lg" color="white" />
+                    </div>
+                </>
+            ) : (
+                <div className="text-light text-center py-4" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: '8px' }}>
+                    <p className="mb-0">Hiện tại danh mục này đang được cập nhật phim. Bạn vui lòng quay lại sau nhé! 😉</p>
+                </div>
+            )}
         </div>
     )
 }

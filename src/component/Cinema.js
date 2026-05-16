@@ -77,7 +77,9 @@ function Cinema() {
     }
   }
   const convertTime = (time) => {
+    if (!time) return '';
     const minutes = parseInt(time);
+    if (isNaN(minutes)) return '';
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
     return `${hours}h ${remainingMinutes}m`;
@@ -97,8 +99,8 @@ function Cinema() {
     window.scrollTo(0, 0);
   }
   const getEpisodeName = () => {
-    const episode = movieDetails.episodes.find(episode => episode.server_name.includes(typeFromURL));
-    return episode ? episode.items.slice(-1)[0]?.name : null;
+    const episode = movieDetails.episodes?.find(episode => episode.server_name.includes(typeFromURL));
+    return episode ? episode.items?.slice(-1)[0]?.name : null;
   }
 
   return (
@@ -124,7 +126,7 @@ function Cinema() {
         </div>
         {/* chiếu phim */}
         <div>
-          <iframe src={movieInfo.embed} className='video' allowFullScreen></iframe>
+          <iframe src={movieInfo?.embed || ''} className='video' allowFullScreen></iframe>
           <div>
             {movieDetails.episodes?.[0].items?.[0].name.toLowerCase() === 'full' ? (
               <>
@@ -176,7 +178,7 @@ function Cinema() {
                       }
                     </div>
                     <div className='border border-light border-1 mx-1 p-1 px-2 mb-2 rounded'>
-                      {convertTime(movieDetails.time) === '' ? convertTime(movieDetails.time) : 'Đang cập nhật'}
+                      {convertTime(movieDetails?.time) || 'Đang cập nhật'}
                     </div>
                   </div>
                   <div className='d-flex flex-wrap mt-2 text-light'>
@@ -273,7 +275,7 @@ function Cinema() {
                     }
                   </div>
                   <div className='border border-light border-1 mx-1 p-1 px-2 mb-2 rounded'>
-                    {convertTime(movieDetails.time) === '' ? convertTime(movieDetails.time) : 'Đang cập nhật'}
+                    {convertTime(movieDetails?.time) || 'Đang cập nhật'}
                   </div>
                 </div>
                 <div className='d-flex flex-wrap mt-2 text-light'>
@@ -352,7 +354,7 @@ function Cinema() {
         <div className='mt-5 text-light'>
           <h4>Các bản chiếu</h4>
           <div className='row'>
-            {movieDetails.episodes.map((episode) => (
+            {movieDetails.episodes?.map((episode) => (
               <div className='col-md-6 col-sm-4' key={episode.id}>
                 <div className='card mt-3 language-hover w-100'>
                   <div className='row g-0'>
@@ -385,13 +387,12 @@ function Cinema() {
         {/* {movieDetails.category[1].list[0].name ? ( */}
         <div className='mt-5 text-light'>
           <h4 className='mb-3'>Các tập phim: </h4>
-          {movieDetails.episodes
-            .filter(episode => episode.server_name.includes(typeFromURL))
+          {movieDetails.episodes?.filter(episode => episode.server_name.includes(typeFromURL))
             .map((episode) => (
               <div key={episode.id}>
                 <h6>{episode.server_name}</h6>
                 <div className='row g-2 mt-2 mb-2'>
-                  {episode.items.map((item) => (
+                  {episode.items?.map((item) => (
                     <div key={item.id} className='col-4 col-md-2 mb-1'>
 
                       {/* 24/12/2024 */}

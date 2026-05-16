@@ -46,12 +46,12 @@ function MovieCate() {
             </Helmet>
             <h4>Danh sách {categoryMovies.cat.name.includes('Phim') ? categoryMovies.cat.name : 'Phim ' + categoryMovies.cat.name}</h4>
             <div className='row'>
-                {categoryMovies.items.map((movie) => (
+                {categoryMovies.items?.map((movie) => (
                     <div className='col-6 col-md-3 col-sm-4 col-xl-2 mb-3' key={movie._id || movie.slug}>
                         <div className='card position-relative tooltip-wrapper border-0 w-100 movie--width1'>
                             <div className='img-container-cate position-relative overflow-hidden'>
                                 <img
-                                    src={movie.thumb_url}
+                                    src={movie.thumb_url || '/images/updating_image.png'}
                                     alt={movie.name}
                                     className='hover-thumb w-100'
                                 />
@@ -72,7 +72,7 @@ function MovieCate() {
                 ))}
             </div>
             <Pagination
-                totalPages={categoryMovies.paginate.total_page}
+                totalPages={categoryMovies.paginate?.total_page || 1}
                 currentPage={currentPage}
                 baseUrl={`/danh-sach/${categoryMovies.cat.slug}`}
             />

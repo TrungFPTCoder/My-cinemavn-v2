@@ -192,7 +192,7 @@ function MovieList() {
               <SwiperSlide key={newMovie.id}>
                 <div className="card border-0 movie--width">
                   <div className='img-container overflow-hidden position-relative w-100'>
-                    <img src={newMovie.poster_url} className="card-img w-100 hover-thumb" alt={newMovie.name} />
+                    <img src={newMovie.poster_url ? newMovie.poster_url : '/images/updating_image.png'} className="card-img w-100 hover-thumb" alt={newMovie.name} />
                     <div className="play-button">
                       <Link to={`/watch/${newMovie.slug}`}><FontAwesomeIcon icon={faPlayCircle} fontSize={60} color="white" /></Link>
                     </div>

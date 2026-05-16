@@ -47,12 +47,12 @@ function NewMovie() {
             </Helmet>
             <h4>Danh sách Phim mới cập nhật</h4>  {/*để tạm*/}
             <div className='row'>
-                {newMovies.items.map((movie) => (
+                {newMovies.items?.map((movie) => (
                     <div className='col-6 col-md-2 col-sm-4 mb-3'>
                         <div className='card position-relative tooltip-wrapper border-0 w-100 movie--width'>
                             <div className='img-container position-relative overflow-hidden'>
                                 <img
-                                    src={movie.thumb_url}
+                                    src={movie.thumb_url || '/images/updating_image.png'}
                                     alt={movie.name}
                                     className='hover-thumb w-100'
                                     height={350}
@@ -74,7 +74,7 @@ function NewMovie() {
                 ))}
             </div>
             <Pagination
-                totalPages={newMovies.paginate.total_page}
+                totalPages={newMovies.paginate?.total_page || 1}
                 currentPage={currentPage}
                 baseUrl={`/danh-sach/phim-moi-cap-nhat`}
             />

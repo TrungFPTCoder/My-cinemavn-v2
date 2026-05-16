@@ -44,17 +44,17 @@ function CountryMovie() {
       style={{ paddingTop: "80px" }}
     >
       <Helmet>
-        <title>Phim {countryMovies.cat.title}</title>
-        <meta name="description" content={countryMovies.cat.title} />
+        <title>Phim {countryMovies.cat?.title || 'Đang cập nhật'}</title>
+        <meta name="description" content={countryMovies.cat?.title || 'Đang cập nhật'} />
       </Helmet>
-      <h4>Danh sách Phim {countryMovies.cat.title}</h4> {/*để tạm*/}
+      <h4>Danh sách Phim {countryMovies.cat?.title || 'Đang cập nhật'}</h4> {/*để tạm*/}
       <div className="row">
-        {countryMovies.items.map((movie) => (
+        {countryMovies.items?.map((movie) => (
           <div className="col-6 col-md-2 col-sm-4 mb-3">
             <div className="card position-relative tooltip-wrapper border-0 w-100">
               <div className="img-container position-relative overflow-hidden">
                 <img
-                  src={movie.thumb_url}
+                  src={movie.thumb_url || '/images/updating_image.png'}
                   alt={movie.name}
                   className="hover-thumb w-100"
                   height={350}
@@ -83,7 +83,7 @@ function CountryMovie() {
         ))}
       </div>
       <Pagination
-        totalPages={countryMovies.paginate.total_page}
+        totalPages={countryMovies.paginate?.total_page || 1}
         currentPage={currentPage}
         baseUrl={`/danh-sach/quoc-gia/${country}`}
       />
